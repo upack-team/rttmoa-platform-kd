@@ -1,0 +1,34 @@
+.hot-header {
+	// box-sizing: border-box;
+	// display: flex;
+	height: 30px;
+	margin: px 10px 0;
+	line-height: 30px;
+	// background: url('../../images/rankingChart-bg.png') no-repeat;
+	background: url('@/views/_/dataScreen/images/rankingChart-bg.png') no-repeat;
+	background-size: 100% 100%;
+	tr {
+		width: 18%;
+		margin-left: 4px;
+		font-size: 15px;
+		font-weight: bold;
+		color: #fdbc52;
+		text-align: center;
+		&:nth-child(2) {
+			margin-left: 4px;
+		}
+		&:last-child {
+			width: 20%;
+			margin-left: 60px;
+		}
+	}
+}
+.hot-echarts {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	// height: calc(100% - 56px);
+	height: 180px;
+	color: #fdbc52;
+}

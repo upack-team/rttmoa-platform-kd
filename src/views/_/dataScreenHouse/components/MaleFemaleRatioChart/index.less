@@ -1,0 +1,74 @@
+.ratio-main {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	// padding: 5px 0px;
+	// .ratio-header {
+	// 	display: flex;
+	// 	justify-content: space-between;
+	// 	width: 100%;
+	// 	height: 115px;
+	// 	.man,
+	// 	.woman {
+	// 		display: flex;
+	// 		flex-direction: column;
+	// 		align-items: center;
+	// 		width: 110px;
+	// 		height: 115px;
+	// 		background: url('../../images/man-bg.png') no-repeat;
+	// 		background-size: 100% 100%;
+	// 		img {
+	// 			width: 60px;
+	// 			height: 60px;
+	// 			margin-top: 17px;
+	// 		}
+	// 		span {
+	// 			margin-top: 2px;
+	// 			font-size: 13px;
+	// 			color: #ffffff;
+	// 		}
+	// 	}
+	// 	.woman {
+	// 		background: url('../../images/woman-bg.png') no-repeat;
+	// 	}
+	// }
+	.ratio-echarts {
+		width: 100%;
+		height: calc(100% - 115px);
+	}
+	.hot-header {
+		// box-sizing: border-box;
+		// display: flex;
+		height: 20px;
+		margin: 10px 10px 0;
+		line-height: 20px;
+		// background: url('../../images/rankingChart-bg.png') no-repeat;
+		background: url('@/views/_/dataScreen/images/rankingChart-bg.png') no-repeat;
+		background-size: 100% 100%;
+		th,
+		td {
+			// width: 18%;
+			margin-left: 4px;
+			font-size: 15px;
+			font-weight: bold;
+			color: #f8f7f5;
+			text-align: center;
+			&:nth-child(2) {
+				margin-left: 4px;
+			}
+			&:last-child {
+				width: 20%;
+				margin-left: 60px;
+			}
+		}
+		th {
+			color: #fba926;
+		}
+		.ellipsis {
+			max-width: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+}

@@ -1,0 +1,1347 @@
+{
+	"code": 200,
+	"msg": "获取菜单树结构成功",
+	"data": [
+		{
+			"path": "/home/index",
+			"element": "/home/index",
+			"meta": {
+				"key": "home",
+				"title": "首页",
+				"icon": "HomeOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": true,
+				"type": "目录",
+				"sort": 10
+			},
+			"parent_id": 0,
+			"unique": "6861eaed1e7200000c0062c2"
+		},
+		{
+			"path": "/dataScreen/index",
+			"element": "/dataScreen/index",
+			"meta": {
+				"key": "dataScreen",
+				"title": "数据大屏",
+				"icon": "PieChartOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": true,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 20
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e58"
+		},
+		{
+			"path": "/dataScreenHouse/index",
+			"element": "/dataScreenHouse/index",
+			"meta": {
+				"key": "dataScreenHouse",
+				"title": "立体库数据大屏",
+				"icon": "RightCircleOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": true,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 25
+			},
+			"parent_id": 0,
+			"unique": "6891994e1b8919f73efc2382"
+		},
+		{
+			"path": "/auth",
+			"redirect": "/auth/page",
+			"meta": {
+				"key": "auth",
+				"title": "权限管理",
+				"icon": "LockOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 30
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e59",
+			"children": [
+				{
+					"path": "/auth/page",
+					"element": "/auth/page/index",
+					"meta": {
+						"key": "pageMenu",
+						"title": "页面权限",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 10
+					},
+					"parent_id": "auth",
+					"unique": "683943c255b6600b07b37e5a"
+				},
+				{
+					"path": "/auth/button",
+					"element": "/auth/button/index",
+					"meta": {
+						"key": "authButton",
+						"title": "按钮权限",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 20
+					},
+					"parent_id": "auth",
+					"unique": "683943c255b6600b07b37e5b"
+				}
+			]
+		},
+		{
+			"path": "/assembly",
+			"redirect": "/assembly/echarts",
+			"meta": {
+				"key": "assembly",
+				"title": "常用组件",
+				"icon": "MedicineBoxOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 40
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e5c",
+			"children": [
+				{
+					"path": "/assembly/excel",
+					"element": "/assembly/excel/index",
+					"meta": {
+						"key": "Excel",
+						"title": "Excel",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 5
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e65"
+				},
+				{
+					"path": "/assembly/echarts",
+					"element": "/assembly/echarts/index",
+					"meta": {
+						"key": "echarts",
+						"title": "ECharts",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 10
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e5d"
+				},
+				{
+					"path": "/assembly/recharts",
+					"element": "/assembly/recharts/index",
+					"meta": {
+						"key": "recharts",
+						"title": "Recharts",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 20
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e5e"
+				},
+				{
+					"path": "/assembly/draft",
+					"element": "/assembly/draft/index",
+					"meta": {
+						"key": "draft",
+						"title": "Wangeditor",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 40
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e60"
+				},
+				{
+					"path": "/assembly/svgIcon",
+					"element": "/assembly/svgIcon/index",
+					"meta": {
+						"key": "svgIcon",
+						"title": "SvgIcon",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 50
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e61"
+				},
+				{
+					"path": "/assembly/statistic",
+					"element": "/assembly/statistic/index",
+					"meta": {
+						"key": "statistic",
+						"title": "Statistic",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 60
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e62"
+				},
+				{
+					"path": "/assembly/qrCode",
+					"element": "/assembly/qrCode/index",
+					"meta": {
+						"key": "qrCode",
+						"title": "QRCode",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 70
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e63"
+				},
+				{
+					"path": "/assembly/watermark",
+					"element": "/assembly/watermark/index",
+					"meta": {
+						"key": "watermark",
+						"title": "Watermark",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 80
+					},
+					"parent_id": "assembly",
+					"unique": "683943c255b6600b07b37e64"
+				}
+			]
+		},
+		{
+			"path": "/feat",
+			"redirect": "/feat/tabs",
+			"meta": {
+				"key": "feat",
+				"title": "常用功能",
+				"icon": "ControlOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 50
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e66",
+			"children": [
+				{
+					"path": "/feat/tabs",
+					"element": "/feat/tabs/index",
+					"meta": {
+						"key": "tabs",
+						"title": "标签栏",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e67",
+					"children": [
+						{
+							"path": "/feat/tabs/detail/:id",
+							"element": "/feat/tabs/detail",
+							"meta": {
+								"key": "tabsDetail",
+								"title": "Tab 详情",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": true,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "tabs",
+							"unique": "683943c255b6600b07b37e68"
+						}
+					]
+				},
+				{
+					"path": "/feat/breadcrumb",
+					"redirect": "/feat/breadcrumb/flat",
+					"meta": {
+						"key": "breadcrumb",
+						"title": "面包屑",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e69",
+					"children": [
+						{
+							"path": "/feat/breadcrumb/flat",
+							"element": "/feat/breadcrumb/flat/index",
+							"meta": {
+								"key": "breadcrumbFlat",
+								"title": "平级模式",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "breadcrumb",
+							"unique": "683943c255b6600b07b37e6a"
+						},
+						{
+							"path": "/feat/breadcrumb/flatDetail",
+							"element": "/feat/breadcrumb/flat/detail",
+							"meta": {
+								"key": "breadcrumbFlatDetail",
+								"title": "平级详情",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": true,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "breadcrumb",
+							"unique": "683943c255b6600b07b37e6b"
+						},
+						{
+							"path": "/feat/breadcrumb/children",
+							"element": "/feat/breadcrumb/children/index",
+							"meta": {
+								"key": "breadcrumbChildren",
+								"title": "层级模式",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "breadcrumb",
+							"unique": "683943c255b6600b07b37e6c",
+							"children": [
+								{
+									"path": "/feat/breadcrumb/children/detail",
+									"element": "/feat/breadcrumb/children/detail",
+									"meta": {
+										"key": "breadcrumbChildrenDetail",
+										"title": "层级详情",
+										"icon": "AppstoreOutlined",
+										"isLink": "",
+										"isHide": true,
+										"isFull": false,
+										"isAffix": false,
+										"type": "菜单",
+										"sort": 1
+									},
+									"parent_id": "breadcrumbChildren",
+									"unique": "683943c255b6600b07b37e6d"
+								}
+							]
+						}
+					]
+				},
+				{
+					"path": "/feat/globalization",
+					"element": "/feat/globalization/index",
+					"meta": {
+						"key": "globalization",
+						"title": "国际化",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e6e"
+				},
+				{
+					"path": "/feat/clipboard",
+					"element": "/feat/clipboard/index",
+					"meta": {
+						"key": "clipboard",
+						"title": "剪贴板",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e6f"
+				},
+				{
+					"path": "/feat/colorPicker",
+					"element": "/feat/colorPicker/index",
+					"meta": {
+						"key": "colorPicker",
+						"title": "取色器",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e70"
+				},
+				{
+					"path": "/feat/demo",
+					"element": "/feat/demo/index",
+					"meta": {
+						"key": "demo",
+						"title": "演示",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e72"
+				},
+				{
+					"path": "/feat/parallax",
+					"element": "/feat/parallax/index",
+					"meta": {
+						"key": "parallax",
+						"title": "parallax",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e73"
+				},
+				{
+					"path": "/feat/three",
+					"element": "/feat/three/index",
+					"meta": {
+						"key": "three",
+						"title": "Three",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "feat",
+					"unique": "683943c255b6600b07b37e77"
+				}
+			]
+		},
+		{
+			"path": "/menu",
+			"redirect": "/menu/menu1",
+			"meta": {
+				"key": "menu",
+				"title": "菜单嵌套",
+				"icon": "ProfileOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 60
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e79",
+			"children": [
+				{
+					"path": "/menu/menu1",
+					"element": "/menu/menu1/index",
+					"meta": {
+						"key": "menu1",
+						"title": "菜单1",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "menu",
+					"unique": "683943c255b6600b07b37e7a"
+				},
+				{
+					"path": "/menu/menu2",
+					"redirect": "/menu/menu2/menu21",
+					"meta": {
+						"key": "menu2",
+						"title": "菜单2",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "menu",
+					"unique": "683943c255b6600b07b37e7b",
+					"children": [
+						{
+							"path": "/menu/menu2/menu21",
+							"element": "/menu/menu2/menu21/index",
+							"meta": {
+								"key": "menu21",
+								"title": "菜单2-1",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "menu2",
+							"unique": "683943c255b6600b07b37e7c"
+						},
+						{
+							"path": "/menu/menu2/menu22",
+							"redirect": "/menu/menu2/menu22/menu221",
+							"meta": {
+								"key": "menu22",
+								"title": "菜单2-2",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "menu2",
+							"unique": "683943c255b6600b07b37e7d",
+							"children": [
+								{
+									"path": "/menu/menu2/menu22/menu221",
+									"element": "/menu/menu2/menu22/menu221/index",
+									"meta": {
+										"key": "menu221",
+										"title": "菜单2-2-1",
+										"icon": "AppstoreOutlined",
+										"isLink": "",
+										"isHide": false,
+										"isFull": false,
+										"isAffix": false,
+										"type": "菜单",
+										"sort": 1
+									},
+									"parent_id": "menu22",
+									"unique": "683943c255b6600b07b37e7e"
+								},
+								{
+									"path": "/menu/menu2/menu22/menu222",
+									"element": "/menu/menu2/menu22/menu222/index",
+									"meta": {
+										"key": "menu222",
+										"title": "菜单2-2-2",
+										"icon": "AppstoreOutlined",
+										"isLink": "",
+										"isHide": false,
+										"isFull": false,
+										"isAffix": false,
+										"type": "菜单",
+										"sort": 1
+									},
+									"parent_id": "menu22",
+									"unique": "683943c255b6600b07b37e7f"
+								}
+							]
+						},
+						{
+							"path": "/menu/menu2/menu23",
+							"element": "/menu/menu2/menu23/index",
+							"meta": {
+								"key": "menu23",
+								"title": "菜单2-3",
+								"icon": "AppstoreOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "菜单",
+								"sort": 1
+							},
+							"parent_id": "menu2",
+							"unique": "683943c255b6600b07b37e80"
+						}
+					]
+				},
+				{
+					"path": "/menu/menu3",
+					"element": "/menu/menu3/index",
+					"meta": {
+						"key": "menu3",
+						"title": "菜单3",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "menu",
+					"unique": "683943c255b6600b07b37e81"
+				},
+				{
+					"path": "/menu/menu4",
+					"element": "/menu/menu4/index",
+					"meta": {
+						"key": "menu4",
+						"title": "菜单4",
+						"icon": "StepBackwardOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 999
+					},
+					"parent_id": "menu",
+					"unique": "683e8394316af126221c93be",
+					"children": [
+						{
+							"path": "/menu/menu4/menu41",
+							"element": "/menu/menu4/menu41/index",
+							"meta": {
+								"key": "menu41",
+								"title": "菜单4-1",
+								"icon": "StepBackwardOutlined",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"type": "目录",
+								"sort": 999
+							},
+							"parent_id": "menu4",
+							"unique": "683e83d4316af126221c93bf",
+							"children": [
+								{
+									"path": "/menu/menu4/menu41/menu411",
+									"element": "/menu/menu4/menu41/menu411/index",
+									"meta": {
+										"key": "menu411",
+										"title": "菜单4-1-1",
+										"icon": "StepBackwardOutlined",
+										"isLink": "",
+										"isHide": false,
+										"isFull": false,
+										"isAffix": false,
+										"type": "目录",
+										"sort": 999
+									},
+									"parent_id": "menu41",
+									"unique": "683e86ba2dc1a5ad83cad754"
+								},
+								{
+									"path": "/menu/menu4/menu41/menu412",
+									"element": "/menu/menu4/menu41/menu412/index",
+									"meta": {
+										"key": "menu412",
+										"title": "菜单4-1-2",
+										"icon": "StepBackwardOutlined",
+										"isLink": "",
+										"isHide": false,
+										"isFull": false,
+										"isAffix": false,
+										"type": "目录",
+										"sort": 999
+									},
+									"parent_id": "menu41",
+									"unique": "683e8816a636d5edf96adc87"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"path": "/form",
+			"redirect": "/form/basicForm",
+			"meta": {
+				"key": "form",
+				"title": "表单页面",
+				"icon": "FormOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 80
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e85",
+			"children": [
+				{
+					"path": "/form/basicForm",
+					"element": "/form/basicForm/index",
+					"meta": {
+						"key": "basicForm",
+						"title": "基础表单 Form",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "form",
+					"unique": "683943c255b6600b07b37e86"
+				},
+				{
+					"path": "/form/proForm",
+					"element": "/form/proForm/index",
+					"meta": {
+						"key": "proForm",
+						"title": "高级表单 proForm",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "form",
+					"unique": "683943c255b6600b07b37e87"
+				},
+				{
+					"path": "/form/proForms",
+					"element": "/form/proForms/index",
+					"meta": {
+						"key": "proForms",
+						"title": "高级表单 proForm",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "form",
+					"unique": "683943c255b6600b07b37e88"
+				},
+				{
+					"path": "/form/advancedForm",
+					"element": "/form/advancedForm/index",
+					"meta": {
+						"key": "advancedForm",
+						"title": "高级表单",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "form",
+					"unique": "683943c255b6600b07b37e89"
+				}
+			]
+		},
+		{
+			"path": "/list",
+			"redirect": "/list/basicTable",
+			"meta": {
+				"key": "list",
+				"title": "列表页面",
+				"icon": "TableOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 90
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e8a",
+			"children": [
+				{
+					"path": "/list/basicTable",
+					"element": "/list/basicTable/index",
+					"meta": {
+						"key": "basicTable",
+						"title": "使用 Table",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e8b"
+				},
+				{
+					"path": "/list/useProTable",
+					"element": "/list/useProTable/index",
+					"meta": {
+						"key": "useProTable",
+						"title": "使用 ProTable",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e8c"
+				},
+				{
+					"path": "/list/useEditTable",
+					"element": "/list/useEditTable/index",
+					"meta": {
+						"key": "useEditTable",
+						"title": "使用 EditTable",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e8d"
+				},
+				{
+					"path": "/list/useDragTable",
+					"element": "/list/useDragTable/index",
+					"meta": {
+						"key": "useDragTable",
+						"title": "使用 DragTable",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e8e"
+				},
+				{
+					"path": "/list/useProList",
+					"element": "/list/useProList/index",
+					"meta": {
+						"key": "useProList",
+						"title": "使用 高级列表",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e8f"
+				},
+				{
+					"path": "/list/usePorDesciptions",
+					"element": "/list/usePorDesciptions/index",
+					"meta": {
+						"key": "usePorDesciptions",
+						"title": "使用 定义列表",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 1
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e90"
+				},
+				{
+					"path": "/list/basic",
+					"element": "/list/basic/index",
+					"meta": {
+						"key": "basic",
+						"title": "数据详情页",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 70
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e83"
+				},
+				{
+					"path": "/list/cat",
+					"element": "/list/cat/index",
+					"meta": {
+						"key": "cat",
+						"title": "小猫页",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 80
+					},
+					"parent_id": "list",
+					"unique": "683943c255b6600b07b37e84"
+				}
+			]
+		},
+		{
+			"path": "/module",
+			"redirect": "/module/product",
+			"meta": {
+				"key": "module",
+				"title": "业务模块",
+				"icon": "ScheduleOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 100
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e91",
+			"children": [
+				{
+					"path": "/module/shelf",
+					"element": "/module/shelf/index",
+					"meta": {
+						"key": "shelf",
+						"title": "仓库货架表",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 10
+					},
+					"parent_id": "module",
+					"unique": "683943c255b6600b07b37e98"
+				},
+				{
+					"path": "/module/storage",
+					"element": "/module/storage/index",
+					"meta": {
+						"key": "storage",
+						"title": "宁波仓库库存报表",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 20
+					},
+					"parent_id": "module",
+					"unique": "683943c255b6600b07b37e97"
+				},
+				{
+					"path": "/module/scadaHarbin",
+					"element": "/module/scadaHarbin/index",
+					"meta": {
+						"key": "scadaHarbin",
+						"title": "Scada Harbin",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 30
+					},
+					"parent_id": "module",
+					"unique": "683943c255b6600b07b37e95"
+				},
+				{
+					"path": "/module/scadaNb",
+					"element": "/module/scadaNb/index",
+					"meta": {
+						"key": "scadaNb",
+						"title": "Scada Ningbo",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 40
+					},
+					"parent_id": "module",
+					"unique": "683943c255b6600b07b37e96"
+				}
+			]
+		},
+		{
+			"path": "/monitor",
+			"redirect": "/monitor/online",
+			"meta": {
+				"key": "monitor",
+				"title": "系统监控",
+				"icon": "AppstoreOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 108
+			},
+			"parent_id": 0,
+			"unique": "686724d82cc2bbffbe7e04e2",
+			"children": [
+				{
+					"path": "/monitor/online",
+					"element": "/monitor/online/index",
+					"meta": {
+						"key": "online",
+						"title": "在线用户",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 10
+					},
+					"parent_id": "monitor",
+					"unique": "686725252cc2bbffbe7e04e3"
+				},
+				{
+					"path": "/monitor/operate",
+					"element": "/monitor/operate/index",
+					"meta": {
+						"key": "operate",
+						"title": "操作日志",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 20
+					},
+					"parent_id": "monitor",
+					"unique": "686726e52cc2bbffbe7e04e4"
+				},
+				{
+					"path": "/monitor/errorLog",
+					"element": "/monitor/errorLog/index",
+					"meta": {
+						"key": "errorLog",
+						"title": "异常日志",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 30
+					},
+					"parent_id": "monitor",
+					"unique": "686728282cc2bbffbe7e04e5"
+				},
+				{
+					"path": "/monitor/server",
+					"element": "/monitor/server/index",
+					"meta": {
+						"key": "server",
+						"title": "服务监控",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 40
+					},
+					"parent_id": "monitor",
+					"unique": "6867284e2cc2bbffbe7e04e6"
+				}
+			]
+		},
+		{
+			"path": "/system",
+			"redirect": "/system/userManage",
+			"meta": {
+				"key": "system",
+				"title": "系统管理",
+				"icon": "SettingOutlined",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 110
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37e99",
+			"children": [
+				{
+					"path": "/system/userList",
+					"element": "/system/userList/index",
+					"meta": {
+						"key": "systemUserList",
+						"title": "用户列表eg1",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 10
+					},
+					"parent_id": "system",
+					"unique": "6840ed05c0e82e43bb7871e9"
+				},
+				{
+					"path": "/system/userList2",
+					"element": "/system/userList2/index",
+					"meta": {
+						"key": "userList2",
+						"title": "用户管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 20
+					},
+					"parent_id": "system",
+					"unique": "683943c255b6600b07b37e9a"
+				},
+				{
+					"path": "/system/userList3",
+					"element": "/system/userList3/index",
+					"meta": {
+						"key": "userList3",
+						"title": "用户管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 30
+					},
+					"parent_id": "system",
+					"unique": "683943c255b6600b07b37e9b"
+				},
+				{
+					"path": "/system/job",
+					"element": "/system/job/index",
+					"meta": {
+						"key": "job",
+						"title": "岗位管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 70
+					},
+					"parent_id": "system",
+					"unique": "685d0dbceaf7c575d9e88532"
+				},
+				{
+					"path": "/system/role",
+					"element": "/system/role/index",
+					"meta": {
+						"key": "role",
+						"title": "角色管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 80
+					},
+					"parent_id": "system",
+					"unique": "685e5b3292720aaf39c2c880"
+				},
+				{
+					"path": "/system/dept",
+					"element": "/system/dept/index",
+					"meta": {
+						"key": "dept",
+						"title": "部门管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 82
+					},
+					"parent_id": "system",
+					"unique": "68625a812b0e9b4fd1524f2e"
+				},
+				{
+					"path": "/system/menus",
+					"element": "/system/menu/index",
+					"meta": {
+						"key": "menus",
+						"title": "菜单管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 86
+					},
+					"parent_id": "system",
+					"unique": "6860afc6ae60ff8930fa85a0"
+				},
+				{
+					"path": "/system/account",
+					"element": "/system/account/index",
+					"meta": {
+						"key": "account",
+						"title": "账号管理",
+						"icon": "AppstoreOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "菜单",
+						"sort": 100
+					},
+					"parent_id": "system",
+					"unique": "683943c255b6600b07b37e9d"
+				},
+				{
+					"path": "/system/about",
+					"element": "/system/about/index",
+					"meta": {
+						"key": "about",
+						"title": "关于项目",
+						"icon": "ExclamationCircleOutlined",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"type": "目录",
+						"sort": 130
+					},
+					"parent_id": "system",
+					"unique": "683943c255b6600b07b37ea0"
+				}
+			]
+		},
+		{
+			"path": "/no-layout/noLayout/index",
+			"element": "/no-layout/noLayout/index",
+			"meta": {
+				"key": "noLayout",
+				"title": "No Layout",
+				"icon": "SelectOutlined",
+				"isLink": "",
+				"isHide": true,
+				"isFull": true,
+				"isAffix": false,
+				"type": "目录",
+				"sort": 140
+			},
+			"parent_id": 0,
+			"unique": "683943c255b6600b07b37ea1"
+		}
+	]
+}

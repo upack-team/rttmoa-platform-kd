@@ -1,0 +1,17 @@
+
+ 
+
+
+
+
+
+
+第一步：在前端系统管理模块、菜单管理模块、中新建菜单
+第二步：在前端src路径下views模块下、copy一个界面出来 src/module/storage_kd_cwwarm/index.tsx
+第三步：
+  3.1、在controllers下创建 增删改查函数
+  3.2、在routes/business_module/index.tsx 创建增删改查的接口
+  3.3、在routes/index.tsx下创建 总路由 
+第四步：在前端 /srd/api/mmodules/module.ts中 创建前端请求后端的接口
+第五步：前端界面修改列显示、新增弹窗的字段、查询参数修改
+第六步：服务端字段修改、接受参数处理

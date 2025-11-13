@@ -1,0 +1,90 @@
+// // Form 样式  原24px
+// .ant-form {
+// 	padding: 12px !important;
+// }
+// // Card 样式  原24px
+// .ant-card-body {
+// 	padding: 0 !important;
+// }
+
+// ColumnConfig.tsx — 列配置中：操作按钮样式、倒三角形
+.more-button {
+	display: flex;
+	height: 100%;
+	.more-button-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 45px;
+		height: 100%;
+		cursor: pointer;
+		// border-left: 1px solid var(--hooks-colorBorderSecondary);
+		&:hover {
+			background-color: var(--hooks-colorBorderSecondary);
+			transition: all 0.3s;
+		}
+	}
+}
+
+// /* 数字输入框：鼠标移入显示悬浮增减按钮 */
+// .always-show-handler .ant-input-number-handler-wrap {
+// 	// width: 300px;
+// 	opacity: 1 !important;
+// 	pointer-events: auto !important;
+// }
+
+// Modal中下拉菜单的高度
+.ant-cascader-menus > .ant-cascader-menu {
+	width: 130px !important;
+	height: 480px !important;
+	overflow-y: auto !important;
+}
+.search-modal {
+	.menu-list {
+		max-height: 510px;
+		margin-top: 25px;
+		// overflow：auto的用法和实现弹性盒横向滚动     https://blog.csdn.net/a1598452168YY/article/details/127111884
+		overflow: auto;
+		padding: 0 15px;
+		.menu-item {
+			position: relative;
+			display: flex;
+			align-items: center;
+			height: 46px;
+			padding: 0 20px;
+			margin: 10px 0;
+			color: var(--hooks-colorTextSecondary);
+			cursor: pointer;
+			background-color: transparent;
+			border: 1px solid var(--hooks-colorBorder);
+			border-radius: calc(var(--hooks-borderRadius) * 1px);
+			transition: all 0.2s ease;
+			.menu-icon {
+				margin-right: 8px;
+				font-size: 16px;
+			}
+			.menu-title {
+				font-size: 14px;
+			}
+			.menu-enter {
+				position: absolute;
+				right: 20px;
+				font-size: 16px;
+			}
+		}
+		// 移动到当前 菜单项中 (让图标、字体、回车键 都变大)
+		.menu-active {
+			color: #ffffff;
+			background-color: var(--hooks-colorPrimary);
+			.menu-icon {
+				font-size: 18px;
+			}
+			.menu-title {
+				font-size: 16px;
+			}
+			.menu-enter {
+				font-size: 20px;
+			}
+		}
+	}
+}

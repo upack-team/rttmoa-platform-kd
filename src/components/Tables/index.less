@@ -1,0 +1,52 @@
+.MultiTable {
+	// * 表头固定的
+
+	// card 100%
+	.ant-card {
+		display: flex !important;
+		flex-direction: column !important;
+		height: 100% !important;
+	}
+
+	// 表格
+	.ant-table {
+		max-height: 100% !important;
+	}
+
+	// 方案一：
+	.ant-table-body {
+		display: flex !important;
+		flex-direction: column !important;
+		height: 100vh; // & 这个比较重要
+	}
+
+	// .ant-table-body {
+	// 	flex: 1 !important;
+	// 	overflow: auto;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// }
+
+	// 内容
+	// .ant-table-container {
+	// 	display: flex !important;
+	// 	flex-direction: column !important;
+	// 	height: 100% !important;
+	// }
+
+	// .ant-table-content {
+	// 	display: flex !important;
+	// 	flex-direction: column !important;
+	// 	height: 100% !important;
+	// }
+
+	// .ant-table-row {
+	// 	flex: 0 0 auto !important;
+	// }
+
+	// // 分页器
+	// .ant-pagination {
+	// 	// background-color: #e51313;
+	// 	margin-right: 15px !important;
+	// }
+}
