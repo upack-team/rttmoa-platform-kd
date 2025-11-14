@@ -5,6 +5,8 @@
 
 
 
+【copy华炎表 至 rttmoa后台管理中】
+
 
 第一步：在前端系统管理模块、菜单管理模块、中新建菜单
 第二步：在前端src路径下views模块下、copy一个界面出来 src/module/storage_kd_cwwarm/index.tsx
