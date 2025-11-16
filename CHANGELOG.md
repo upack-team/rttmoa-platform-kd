@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 2.4.33 (2025-11-16)
+
+
+### Features
+
+* 🚀 保温库出库大屏显示修改界面内容 ([51a5749](https://github.com/rttmoa/rttmoa-platform/commit/51a57493a21fce5ffd82ca6821da245486f83e41))
+* 🚀 添加手动创建单据界面 ([03d662c](https://github.com/rttmoa/rttmoa-platform/commit/03d662c55aca89baec1904914164ab31d4a5eaf2))
+* 🚀 添加新菜单 ([b229564](https://github.com/rttmoa/rttmoa-platform/commit/b2295644535357baa7b785d4ad9cbef2185583af))
+* 🚀 complete project configuration ([d9ed15d](https://github.com/rttmoa/rttmoa-platform/commit/d9ed15d8aa61a7fa975ead327f5bcf1163b0e830))
+
 ### 2.4.32 (2025-11-16)
 
 
