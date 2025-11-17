@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.35](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.34...v2.4.35) (2025-11-17)
+
+### Features
+
+- 🚀 修改了服务端的 查询参数、 新增的字段类型 string、number、select、date ([47ffee4](https://github.com/rttmoa/rttmoa-platform/commit/47ffee46e10f7f0e5b50a26628da39d44d061076))
+
 ### [2.4.34](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.33...v2.4.34) (2025-11-16)
 
 ### 2.4.33 (2025-11-16)
