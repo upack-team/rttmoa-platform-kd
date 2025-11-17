@@ -20,7 +20,13 @@
   3.2、在routes/keepwarm_doc/index.tsx 创建对应文件夹和增删改查的接口
   3.3、在routes/index.tsx下创建 总路由 
   
-第四步：在前端 /src/api/mmodules/module.ts中 创建前端请求后端(增删改查)接口
-第五步：前端界面修改列显示、新增弹窗的字段、查询参数修改
-第六步：服务端字段修改、接受参数处理
- 
+第四步：服务端Query、Add、Mod、Del、DelMore修改要字段名、替换表名、  替换华炎的字段：查询字段和新增字段即可 queryField={}   addOrModField={}   select_option={}
+
+第四步：在前端 /src/api/mmodules下创建对应服务端的文件、创建前端请求后端(增删改查)接口 keepwarmDocAPI {}、 修改完后、修改前端列字段和弹窗字段
+
+第五步： views/keepwarm_doc/create_order/index.tsx 文件夹下
+  5.1、修改index.tsx中 api={keepwarmDocAPI.createAdd}  
+  5.2、修改Column.tsx文件中列配置
+  5.3、修改Modal.tsx文件中新建/编辑弹窗
+
+第六步：前端发请求 测试服务端

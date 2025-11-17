@@ -2,7 +2,6 @@ import Router = require("@koa/router");
 import routes from "../../controllers/keepwarm_doc/create_order";
 const router = new Router();
 
-// Sys 测试模块
 
 router.post("/query", routes.Query);  // 查询
 

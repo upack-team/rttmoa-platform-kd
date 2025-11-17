@@ -16,6 +16,91 @@ class Basic {
 		}
 	}
 
+	// Query 查询解析数字类型：搜索数字类型
+	queryParseRange(value: any) {
+		if (!value) return null;
+
+		// "2-20"
+		if (_.isString(value) && value.includes('-')) {
+			const [min, max] = value.split('-').map(n => _.toNumber(n));
+			return { $gte: min, $lte: max };
+		}
+
+		// [2,20]
+		if (_.isArray(value) && value.length === 2) {
+			return { $gte: _.toNumber(value[0]), $lte: _.toNumber(value[1]) };
+		}
+
+		// 单个数字 20
+		const num = _.toNumber(value);
+		if (!_.isNaN(num)) return num;
+
+		return null;
+	}
+	// Query 查询解析日期类型：传递的是时间戳
+	queryParseDateRange(value: any) {
+		if (!Array.isArray(value) || value.length !== 2) return null;
+		const [start, end] = value;
+
+		if (_.isNumber(start) && _.isNumber(end)) {
+			return { $gte: new Date(start), $lte: new Date(end) };
+		}
+
+		return null;
+	}
+
+	// Add 新增或修改时（优化）
+	addAndModCommon(data: any, fieldAttribute: Record<string, any>, SELECT_OPTIONS: any) {
+		const doc: Record<string, any> = {};
+
+		Object.entries(fieldAttribute).forEach(([field, type]) => {
+			let val = data[field];
+
+			if (val === undefined || val === null || val === '') return null;
+
+			switch (type) {
+				case 'string': {
+					doc[field] = String(val).trim();
+					break;
+				}
+				case 'number': {
+					val = Number(val);
+					if (!isNaN(val)) doc[field] = val;
+					break;
+				}
+				case 'date': {
+					const d: any = new Date(val);
+					if (!isNaN(d.getTime())) doc[field] = d;
+					break;
+				}
+				case 'select': {
+					const options = SELECT_OPTIONS[field];
+					if (options && options.includes(val)) {
+						doc[field] = val;
+					} else {
+						throw new Error(`字段 ${field} 的值不合法，必须是 ${options?.join(' / ')}`);
+					}
+					break;
+				} 
+				default:
+					break;
+			}
+		});
+
+		return doc;
+	}
+
+	// 新增或编辑时
+	// private addAndModifyField = (data: any) => {
+	// 	return {
+	// 		postCode: this.normalize(data?.postName, ['string'], null),
+	// 		postName: this.normalize(data?.postName, ['string'], null), // 产品经理 | 前端开发 | 会计
+	// 		postSort: this.normalize(data?.postSort, ['number'], 1), // 排序
+	// 		status: this.normalize(data?.status, ['string'], null), // 开关：开启/关闭
+	// 		desc: this.normalize(data?.desc, ['string'], null),
+	// 		flag: false,
+	// 	};
+	// };
 	normalize(value: any, types: Array<'string' | 'number' | 'array' | 'boolean'>, defaultValue: any = null) {
 		if (_.isNil(value)) return defaultValue;
 
@@ -58,7 +143,8 @@ class Basic {
 		}
 		return defaultValue;
 	}
-	// 封装通用处理函数
+
+	// 失效：封装通用处理函数
 	async handle(ctx: Context, handler: (ctx: Context) => Promise<any>) {
 		try {
 			function mapStatusCode(message: string = ''): number {

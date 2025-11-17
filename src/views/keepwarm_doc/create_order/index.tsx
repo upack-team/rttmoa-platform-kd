@@ -8,7 +8,7 @@ import ToolBarRender from './component/ToolBar';
 import ModalComponent from './component/Modal';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
-import { systemAPI } from '@/api/modules/system';
+import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
 
 // 新增表时：
 // 	1、前端修改路由、表格api查询等方法的修改
@@ -17,7 +17,6 @@ import { systemAPI } from '@/api/modules/system';
 // 常用字段：文本、数值、选择框、日期
 
 const useProTable = () => {
-	const tableName = '岗位管理';
 	const tablePersistence = 'system_sys'; // 持久化 Key
 
 	const actionRef = useRef<ActionType>(); // 表格 ref
@@ -43,13 +42,14 @@ const useProTable = () => {
 	const [modalType, setModalType] = useState<'create' | 'edit' | 'detail'>('create');
 	const [modalUserInfo, setModalUserInfo] = useState<any>({});
 
+	const tableName = '保温库手动创建单据';
 	const api = {
-		find: systemAPI.sysFind,
-		add: systemAPI.sysAdd,
-		modify: systemAPI.sysMod,
-		del: systemAPI.sysDel,
-		delMore: systemAPI.sysDelMore,
-		importEx: systemAPI.sysImportEx,
+		find: keepwarmDocAPI.createFind,
+		add: keepwarmDocAPI.createAdd,
+		modify: keepwarmDocAPI.createMod,
+		del: keepwarmDocAPI.createDel,
+		delMore: keepwarmDocAPI.createDelMore,
+		importEx: keepwarmDocAPI.createImportEx,
 	};
 
 	useEffect(() => {
