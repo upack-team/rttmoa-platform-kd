@@ -13,11 +13,11 @@ type DrawerComponentProps = {
 
 	modalOperate?: any;
 	modalResult?: any;
-	handleColumnsData?: any;
+	columnsSchemaField?: any;
 };
 const DrawerComponent: React.FC<DrawerComponentProps> = Params => {
-	const { drawerIsVisible, drawerCurrentRow, drawerClose, columnsConfig, modalOperate, modalResult, handleColumnsData } = Params;
-	const col = columnsConfig(modalOperate, modalResult, handleColumnsData) as ProDescriptionsItemProps<UserList>[];
+	const { drawerIsVisible, drawerCurrentRow, drawerClose, columnsConfig, modalOperate, modalResult, columnsSchemaField } = Params;
+	const col = columnsConfig(modalOperate, modalResult, columnsSchemaField) as ProDescriptionsItemProps<UserList>[];
 	const colConfig = col.map((value: any) => {
 		if (value.valueType == 'digit') value.valueType = 'text';
 		return { ...value };

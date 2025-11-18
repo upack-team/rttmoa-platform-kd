@@ -5,26 +5,28 @@ import { TableEditIcon, TableRenderAction } from '@/components/TableAction';
 import Link from 'antd/lib/typography/Link';
 import { UserOutlined } from '@ant-design/icons';
 
-export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsData?: any): ProColumns<any>[] => {
-	console.log('columnsData', columnsData);
-	return columnsData || [];
-	return [
+export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSchemaField?: any): ProColumns<any>[] => {
+	// 处理后的列配置
+	const columnsField = columnsSchemaField || [];
+	const t1 = [
 		{
 			dataIndex: 'index',
 			valueType: 'index',
 			width: 40,
 			fixed: 'left',
 			align: 'center',
-			render: (text, entity, index) => <Link onClick={() => modalOperate('detail', entity)}>{index + 1}</Link>,
+			render: (text: any, entity: any, index: any) => <Link onClick={() => modalOperate('detail', entity)}>{index + 1}</Link>,
 			responsive: ['sm'],
 		},
-		...columnsData,
+	];
+	const t2 = [
 		{
 			title: '行内编辑',
 			valueType: 'option',
 			align: 'center',
+			fixed: 'right',
 			width: 150,
-			render: (text, record, _, action) => TableEditIcon(record, action),
+			render: (text: any, record: any, action: any) => TableEditIcon(record, action),
 		},
 		{
 			key: 'option',
@@ -36,8 +38,9 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsData
 			tooltip: '操作按钮分别是：详情、编辑、删除',
 			hideInSearch: true,
 			// render: renderAction,
-			render: (_, record) => TableRenderAction(record, modalOperate, modalResult),
+			render: (_: any, record: any) => TableRenderAction(record, modalOperate, modalResult),
 		},
 	];
+	return [...t1, ...columnsField, ...t2];
 };
 export default ColumnsConfig;

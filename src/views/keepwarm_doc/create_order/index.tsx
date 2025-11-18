@@ -205,9 +205,9 @@ const useProTable = () => {
 		showTotal: () => `第 ${pagination.page} 页，共 ${pagination.total} 条`,
 	};
 
-	const allWidth = ColumnsConfig().reduce((sum: any, col: any) => sum + (col?.width || 150), 0);
+	// const allWidth = ColumnsConfig().reduce((sum: any, col: any) => sum + (col?.width || 150), 0);
 
-	const handleColumnsData = useColumnSchema(columnSchema);
+	const columnsSchemaField = useColumnSchema(columnSchema);
 	// console.log('columnSchema', columnSchema);
 	// console.log('columns', handleColumnsData);
 
@@ -216,7 +216,7 @@ const useProTable = () => {
 			<ProTable<any>
 				rowKey='_id'
 				className='ant-pro-table-scroll'
-				scroll={{ x: allWidth, y: '100vh' }} // 100vh
+				scroll={{ x: 1000, y: '100vh' }} // 100vh
 				headerTitle={tableName}
 				loading={loading}
 				formRef={formRef} // 可以获取到查询表单的 form 实例
@@ -225,7 +225,7 @@ const useProTable = () => {
 				cardBordered
 				dateFormatter='number'
 				defaultSize='small'
-				columns={ColumnsConfig(modalOperate, modalResult, handleColumnsData)}
+				columns={ColumnsConfig(modalOperate, modalResult, columnsSchemaField)}
 				toolBarRender={() => ToolBarRender(toolBarParams)} // 渲染工具栏
 				search={openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true }} // 搜索表单配置
 				request={handleRequest}
@@ -287,7 +287,7 @@ const useProTable = () => {
 				columnsConfig={ColumnsConfig}
 				modalOperate={modalOperate}
 				modalResult={modalResult}
-				handleColumnsData={handleColumnsData}
+				columnsSchemaField={columnsSchemaField}
 			/>
 			{/* <ModalForm
 				title='新增/编辑'
