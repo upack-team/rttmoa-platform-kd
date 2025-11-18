@@ -11,7 +11,7 @@
 
 
 
-第一步：文件夹 — 先在前端 /src/views/keepwarm_doc/create_order/index.tsx 下创建文件夹和文件、然后再去 新建菜单
+第一步：前端文件夹 — 先在前端 /src/views/keepwarm_doc/create_order/index.tsx(例子) 下创建文件夹和文件、然后再去新建菜单
 
 第二步：新建菜单 — 在前端系统管理模块、菜单管理模块中新建菜单：是否顶级部门、菜单图标、菜单路由、菜单组件路径、菜单标识、菜单标题
 

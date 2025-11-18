@@ -15,9 +15,17 @@ import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
 // 	2、列字段修改 — Column.tsx
 // 	3、弹窗字段修改 — Modal.tsx
 // 常用字段：文本、数值、选择框、日期
-
 const useProTable = () => {
-	const tablePersistence = 'system_sys'; // 持久化 Key
+	const tablePersistence = 'keepwarm_doc_create_order'; // 持久化 Key
+	const tableName = '保温库手动创建单据';
+	const api = {
+		find: keepwarmDocAPI.createFind,
+		add: keepwarmDocAPI.createAdd,
+		modify: keepwarmDocAPI.createMod,
+		del: keepwarmDocAPI.createDel,
+		delMore: keepwarmDocAPI.createDelMore,
+		importEx: keepwarmDocAPI.createImportEx,
+	};
 
 	const actionRef = useRef<ActionType>(); // 表格 ref
 	const formRef = useRef<FormInstance>(); // 表单 ref
@@ -41,16 +49,6 @@ const useProTable = () => {
 	const [modalTitle, setModalTitle] = useState<string>('');
 	const [modalType, setModalType] = useState<'create' | 'edit' | 'detail'>('create');
 	const [modalUserInfo, setModalUserInfo] = useState<any>({});
-
-	const tableName = '保温库手动创建单据';
-	const api = {
-		find: keepwarmDocAPI.createFind,
-		add: keepwarmDocAPI.createAdd,
-		modify: keepwarmDocAPI.createMod,
-		del: keepwarmDocAPI.createDel,
-		delMore: keepwarmDocAPI.createDelMore,
-		importEx: keepwarmDocAPI.createImportEx,
-	};
 
 	useEffect(() => {
 		const updateSpan = () => {

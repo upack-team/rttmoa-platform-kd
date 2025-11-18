@@ -28,7 +28,6 @@ const usePermissions = () => {
 				dispatch(setAuthButtonList(buttonList));
 				dispatch(setAuthMenuList(menuList));
 
-				// 无菜单权限
 				if (!menuList.length) {
 					notification.warning({
 						message: '无权限访问',

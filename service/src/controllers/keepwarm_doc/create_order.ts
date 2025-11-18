@@ -28,15 +28,16 @@ class CreateOrder extends Basic {
 
 	// 查询字段
 	private queryField: any = {
-		// 文本查询
-		stringSearchField: ['time__c', 'order_no__c', 'enter_date__c', 'enter_ware__c', 'product_name__c', 'product_date__c', 'batch__c'],
-		// 数值查询
-		numberSearchField: [],
-		// 日期查询： 传递时间戳：1709222400000    传递字符串："2024-05-03"    |"2024-05-03T00:00:00.000Z"
-		dateSearchField: ['createTime'],
+		string_Field: ['time__c', 'order_no__c', 'enter_date__c', 'enter_ware__c', 'product_name__c', 'product_date__c', 'batch__c'],
+		number_Field: [],
+		// 日期查询： 1709222400000  |  "2024-05-03"  |   "2024-05-03T00:00:00.000Z"
+		date_Field: ['createTime'],
+	};
+	private select_option = {
+		status__c: ['未执行', '正在执行', '执行异常', '已完成'],
 	};
 
-	// 新增字段
+	// 新增/修改字段
 	private addOrModField = {
 		time__c: 'string',
 		order_no__c: 'string',
@@ -56,30 +57,24 @@ class CreateOrder extends Basic {
 
 		createTime: 'date',
 	};
-	private select_option = {
-		status__c: ['未执行', '正在执行', '执行异常', '已完成'],
-	};
-	
+
 	private QueryFilter = (data: any) => {
 		const query: Record<string, any> = {};
 		const search = _.get(data, 'search', {});
 
-		this.queryField.stringSearchField.forEach((field: any) => {
-			// 文本
+		this.queryField.string_Field.forEach((field: any) => {
 			const val = _.trim(search[field]);
 			if (val) {
 				query[field] = { $regex: val, $options: 'i' };
 			}
 		});
-		this.queryField.numberSearchField.forEach((field: any) => {
-			// 数值
+		this.queryField.number_Field.forEach((field: any) => {
 			const parsed = this.queryParseRange(search[field]);
 			if (parsed !== null) {
 				query[field] = parsed;
 			}
 		});
-		this.queryField.dateSearchField.forEach((field: any) => {
-			// 日期
+		this.queryField.date_Field.forEach((field: any) => {
 			const parsed = this.queryParseDateRange(search[field]);
 			if (parsed !== null) {
 				query[field] = parsed;
@@ -96,17 +91,14 @@ class CreateOrder extends Basic {
 			const query = this.QueryFilter(data);
 			console.log('query', query);
 
-			// 分页参数
 			const page = _.clamp(_.toInteger(_.get(data, 'pagination.page', 1)), 1, Number.MAX_SAFE_INTEGER);
 			const pageSize = _.clamp(_.toInteger(_.get(data, 'pagination.pageSize', 10)), 1, 100);
 
-			// 排序参数
 			const sort = _.get(data, 'sort', { postSort: 1, createTime: -1 });
 
-			// 并行查询
 			const [count, list] = await Promise.all([ctx.mongo.count('kd_keepwarm_doc__c', query), ctx.mongo.find('kd_keepwarm_doc__c', { query, page, pageSize, sort })]);
 
-			return ctx.send({ list, page, pageSize, total: count });
+			return ctx.send({ list, page, pageSize, total: count, select: this?.select_option || [] });
 		} catch (err: any) {
 			return ctx.sendError(500, err.message || '服务器错误');
 		}
@@ -115,10 +107,10 @@ class CreateOrder extends Basic {
 	Add = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
-			const exist = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { postName: _.trim(data?.postName) } });
-			if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
+			// const exist = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { postName: _.trim(data?.postName) } });
+			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
 
-			const doc = this.addAndModCommon(data, this.addOrModField, this.select_option);
+			const doc = this.addAndModField(data, this.addOrModField, this.select_option);
 			const document: any = {
 				...doc,
 				createBy: null,
@@ -139,12 +131,12 @@ class CreateOrder extends Basic {
 			if (!id) return ctx.sendError(400, `修改岗位操作：无iD`);
 
 			// 修改时、需排序修改内容的postName
-			const exist = await ctx.mongo.find('kd_keepwarm_doc__c', {
-				query: { postName: _.trim(data?.postName), _id: { $ne: id } },
-			});
-			if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
+			// const exist = await ctx.mongo.find('kd_keepwarm_doc__c', {
+			// 	query: { postName: _.trim(data?.postName), _id: { $ne: id } },
+			// });
+			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
 
-			const doc = this.addAndModCommon(data, this.addOrModField, this.select_option);
+			const doc = this.addAndModField(data, this.addOrModField, this.select_option);
 			const document: any = {
 				...doc,
 				updateBy: null,
@@ -160,20 +152,15 @@ class CreateOrder extends Basic {
 	ImportEx = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
-
-			// 这个字段与上面导入新增的字段不同
 			if (data && data.length) {
 				for (const element of data) {
-					const exist = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { postName: _.trim(element.postName) } });
-					if (exist.length == 0) {
-						const doc = this.addAndModCommon(data, this.addOrModField, this.select_option);
-						const document: any = {
-							...doc,
-							createBy: 'admin',
-							createTime: new Date(),
-						};
-						await ctx.mongo.insertOne('kd_keepwarm_doc__c', document);
-					}
+					const doc = this.addAndModField(element, this.addOrModField, this.select_option);
+					const document: any = {
+						...doc,
+						createBy: 'admin',
+						createTime: new Date(),
+					};
+					await ctx.mongo.insertOne('kd_keepwarm_doc__c', document);
 				}
 				return ctx.send('数据导入成功');
 			} else return ctx.sendError(400, `服务端未获取到数据`);

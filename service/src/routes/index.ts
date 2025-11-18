@@ -14,7 +14,7 @@ export default (app: any) => {
 
 	moduleRoutes(app); // Module — 库存可视化模块
 	
-	keepwarmDocRoutes(app) // 保温库单据管理
+	keepwarmDocRoutes(app) // keepwarm_doc — 保温库单据管理
 
 
 

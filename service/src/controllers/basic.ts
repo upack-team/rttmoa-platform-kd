@@ -16,7 +16,7 @@ class Basic {
 		}
 	}
 
-	// Query 查询解析数字类型：搜索数字类型
+	// * Query 查询解析数字类型：搜索数字类型
 	queryParseRange(value: any) {
 		if (!value) return null;
 
@@ -37,7 +37,7 @@ class Basic {
 
 		return null;
 	}
-	// Query 查询解析日期类型：传递的是时间戳
+	// * Query 查询解析日期类型：传递的是时间戳
 	queryParseDateRange(value: any) {
 		if (!Array.isArray(value) || value.length !== 2) return null;
 		const [start, end] = value;
@@ -49,8 +49,8 @@ class Basic {
 		return null;
 	}
 
-	// Add 新增或修改时（优化）
-	addAndModCommon(data: any, fieldAttribute: Record<string, any>, SELECT_OPTIONS: any) {
+	// * Add 新增或修改时（优化）
+	addAndModField(data: Record<string, any>, fieldAttribute: Record<string, any>, SELECT_OPTIONS: any) {
 		const doc: Record<string, any> = {};
 
 		Object.entries(fieldAttribute).forEach(([field, type]) => {
