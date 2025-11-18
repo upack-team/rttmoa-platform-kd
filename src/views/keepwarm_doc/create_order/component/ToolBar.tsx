@@ -9,7 +9,7 @@ import TableColumnsConfig from './Column';
 type ToolBarProps = {
 	quickSearch: () => void;
 	openSearch: string;
-	SetOpenSearch: any;
+	setOpenSearch: any;
 	modalOperate: (type: string, data: any) => void;
 	tableName: string;
 	tableData: Array<any>[];
@@ -18,18 +18,18 @@ type ToolBarProps = {
 
 // * 渲染工具栏 组件
 const ToolBarRender = (props: ToolBarProps) => {
-	let { quickSearch, openSearch, SetOpenSearch, modalOperate, tableData, tableName, ImportData } = props;
+	let { quickSearch, openSearch, setOpenSearch, modalOperate, tableData, tableName, ImportData } = props;
 	const dispatch = useDispatch();
 
 	const CreateBtn = () => {
 		modalOperate('create', null);
 	};
 	// Excel 头
-	const excelHeader = TableColumnsConfig(1, 1)
+	const excelHeader = TableColumnsConfig()
 		.filter((v: any) => {
-			return v.title != '操作' && v.title != '创建日期';
+			return v?.title != '操作' && v?.title != '创建日期';
 		})
-		.map((v: any) => v.title);
+		.map((v: any) => v?.title);
 	const exportExcel: any = tableData.map((v: any) => {
 		return {
 			岗位名称: v.postName,
@@ -66,7 +66,7 @@ const ToolBarRender = (props: ToolBarProps) => {
 			<Button icon={<SettingOutlined className='hover:cursor-pointer' />}>Excel Setting</Button>
 		</Excel>,
 		<Tooltip title={!openSearch ? '关闭表单搜索' : '开启表单搜索'} className='text-lg'>
-			<span onClick={() => SetOpenSearch(!openSearch)}>
+			<span onClick={() => setOpenSearch(!openSearch)}>
 				<SearchOutlined />
 			</span>
 		</Tooltip>,

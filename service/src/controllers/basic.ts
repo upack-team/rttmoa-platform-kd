@@ -16,76 +16,87 @@ class Basic {
 		}
 	}
 
-	// * Query 查询解析数字类型：搜索数字类型
-	queryParseRange(value: any) {
-		if (!value) return null;
+	// * 查询时处理query查询条件（优化）
+	QueryFilter = (data: any, FieldSchema: Record<string, any>) => {
+		const query: Record<string, any> = {};
+		const search = _.get(data, 'search', {});
 
-		// "2-20"
-		if (_.isString(value) && value.includes('-')) {
-			const [min, max] = value.split('-').map(n => _.toNumber(n));
-			return { $gte: min, $lte: max };
-		}
+		Object.entries(FieldSchema).forEach(([field, config]) => {
+			if (!config.query) return; // 不参与查询
 
-		// [2,20]
-		if (_.isArray(value) && value.length === 2) {
-			return { $gte: _.toNumber(value[0]), $lte: _.toNumber(value[1]) };
-		}
+			const value = search[field];
+			if (value === undefined || value === null || value === '') return;
 
-		// 单个数字 20
-		const num = _.toNumber(value);
-		if (!_.isNaN(num)) return num;
+			// 如果是字符串
+			if (config.type == 'string') {
+				query[field] = { $regex: _.trim(value), $options: 'i' };
+			}
+			// 如果是数字：搜索数字类型
+			if (config.type == 'number') {
+				// "2-20"
+				if (_.isString(value) && value.includes('-')) {
+					const [min, max] = value.split('-').map(n => _.toNumber(n));
+					query[field] = { $gte: min, $lte: max };
+				}
 
-		return null;
-	}
-	// * Query 查询解析日期类型：传递的是时间戳
-	queryParseDateRange(value: any) {
-		if (!Array.isArray(value) || value.length !== 2) return null;
-		const [start, end] = value;
+				// [2,20]
+				if (_.isArray(value) && value.length === 2) {
+					query[field] = { $gte: _.toNumber(value[0]), $lte: _.toNumber(value[1]) };
+				}
 
-		if (_.isNumber(start) && _.isNumber(end)) {
-			return { $gte: new Date(start), $lte: new Date(end) };
-		}
+				// 单个数字 20
+				const num = _.toNumber(value);
+				if (!_.isNaN(num)) query[field] = num;
+			}
+			// 如果是日期：传递的是时间戳
+			if (config.type == 'date') {
+				if (!Array.isArray(value) || value.length !== 2) return null;
+				const [start, end] = value;
 
-		return null;
-	}
+				if (_.isNumber(start) && _.isNumber(end)) {
+					query[field] = { $gte: new Date(start), $lte: new Date(end) };
+				}
+			}
+			// 如果是选择框
+			if (config.type == 'select') {
+				query[field] = value; // 一般 select 精确匹配
+			}
+		});
+
+		return query;
+	};
 
 	// * Add 新增或修改时（优化）
-	addAndModField(data: Record<string, any>, fieldAttribute: Record<string, any>, SELECT_OPTIONS: any) {
+	addAndModField(data: any, FieldSchema: Record<string, any>) {
 		const doc: Record<string, any> = {};
 
-		Object.entries(fieldAttribute).forEach(([field, type]) => {
-			let val = data[field];
+		for (const field in FieldSchema) {
+			const cfg = FieldSchema[field];
+			const val = data[field];
+			if (val === undefined || val == '') continue; // 结束本次循环
 
-			if (val === undefined || val === null || val === '') return null;
-
-			switch (type) {
-				case 'string': {
+			switch (cfg.type) {
+				case 'string':
 					doc[field] = String(val).trim();
 					break;
-				}
-				case 'number': {
-					val = Number(val);
+				case 'number':
 					if (!isNaN(val)) doc[field] = val;
 					break;
-				}
 				case 'date': {
 					const d: any = new Date(val);
 					if (!isNaN(d.getTime())) doc[field] = d;
 					break;
 				}
 				case 'select': {
-					const options = SELECT_OPTIONS[field];
-					if (options && options.includes(val)) {
+					if (cfg.options.includes(val)) {
 						doc[field] = val;
-					} else {
-						throw new Error(`字段 ${field} 的值不合法，必须是 ${options?.join(' / ')}`);
 					}
 					break;
-				} 
+				}
 				default:
 					break;
 			}
-		});
+		}
 
 		return doc;
 	}

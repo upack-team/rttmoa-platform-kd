@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Form } from 'antd';
-import { ProTable } from '@ant-design/pro-components';
+import { ModalForm, ProFormItem, ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
 import ColumnsConfig from './component/Column';
@@ -9,6 +9,8 @@ import ModalComponent from './component/Modal';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
 import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
+import { forIn } from 'lodash';
+import useColumnSchema from '@/hooks/useColumnSchema';
 
 // 新增表时：
 // 	1、前端修改路由、表格api查询等方法的修改
@@ -34,9 +36,9 @@ const useProTable = () => {
 	const [searchSpan, setSearchSpan] = useState(6); // 搜索条件显示多少个 span
 	const [editableKeys, setEditableKeys] = useState<React.Key[]>([]); // 可编辑行
 
-	const [openSearch, SetOpenSearch] = useState<boolean>(false); // 工具栏：开启关闭表单搜索
+	const [openSearch, setOpenSearch] = useState<boolean>(false); // 工具栏：开启关闭表单搜索
 	const [loading, setLoading] = useState<boolean>(false); // Loading：加载Loading
-	const [pagination, SetPagination] = useState<any>({ page: 1, pageSize: 10, total: 0 }); // 分页数据
+	const [pagination, setPagination] = useState<any>({ page: 1, pageSize: 10, total: 0 }); // 分页数据
 	const [tableData, setTableData] = useState<any[]>([]); // 表格数据
 	const [selectedRows, setSelectedRows] = useState<any[]>([]); // 表格：选择行数据
 
@@ -49,6 +51,8 @@ const useProTable = () => {
 	const [modalTitle, setModalTitle] = useState<string>('');
 	const [modalType, setModalType] = useState<'create' | 'edit' | 'detail'>('create');
 	const [modalUserInfo, setModalUserInfo] = useState<any>({});
+
+	const [columnSchema, setcolumnSchema] = useState<any>({});
 
 	useEffect(() => {
 		const updateSpan = () => {
@@ -159,8 +163,10 @@ const useProTable = () => {
 				// console.log('岗位查询：', payload.search);
 
 				const { data }: any = await api.find(payload);
-				// console.log('岗位接口数据：', data);
-				SetPagination((prev: any) => ({ ...prev, total: data.total }));
+				console.log('接口数据：', data);
+				setcolumnSchema(data?.schema || {});
+
+				setPagination((prev: any) => ({ ...prev, total: data.total }));
 				return {
 					data: data.list,
 					success: true,
@@ -180,7 +186,7 @@ const useProTable = () => {
 	let toolBarParams: any = {
 		quickSearch, // 工具栏：快捷搜索
 		openSearch,
-		SetOpenSearch, // 工具栏：开启表单搜索
+		setOpenSearch, // 工具栏：开启表单搜索
 		modalOperate,
 		tableName,
 		tableData,
@@ -194,12 +200,16 @@ const useProTable = () => {
 		...pagination,
 		pageSizeOptions: [10, 15, 20, 30, 50],
 		onChange: (page: number, pageSize: number) => {
-			SetPagination({ ...pagination, page, pageSize });
+			setPagination({ ...pagination, page, pageSize });
 		},
 		showTotal: () => `第 ${pagination.page} 页，共 ${pagination.total} 条`,
 	};
 
-	const allWidth = ColumnsConfig('', '').reduce((sum: any, col: any) => sum + (col.width || 0), 0);
+	const allWidth = ColumnsConfig().reduce((sum: any, col: any) => sum + (col?.width || 150), 0);
+
+	const handleColumnsData = useColumnSchema(columnSchema);
+	// console.log('columnSchema', columnSchema);
+	// console.log('columns', handleColumnsData);
 
 	return (
 		<>
@@ -215,7 +225,7 @@ const useProTable = () => {
 				cardBordered
 				dateFormatter='number'
 				defaultSize='small'
-				columns={ColumnsConfig(modalOperate, modalResult)}
+				columns={ColumnsConfig(modalOperate, modalResult, handleColumnsData)}
 				toolBarRender={() => ToolBarRender(toolBarParams)} // 渲染工具栏
 				search={openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true }} // 搜索表单配置
 				request={handleRequest}
@@ -277,7 +287,34 @@ const useProTable = () => {
 				columnsConfig={ColumnsConfig}
 				modalOperate={modalOperate}
 				modalResult={modalResult}
+				handleColumnsData={handleColumnsData}
 			/>
+			{/* <ModalForm
+				title='新增/编辑'
+				open={true}
+				// onFinish={async (values) => handleSubmit(values)}
+			>
+				{Object.keys(columnSchema).map((field: any) => {
+					// console.log('field', );
+					const item: any = columnSchema[field];
+					if (!item.editable) return null;
+
+					return (
+						<ProFormItem
+							key={field}
+							name={field}
+							label={item.label}
+							valueType={item.type}
+							// fieldProps={''}
+							// fieldProps={
+							//   item.type === 'select'
+							//     ? { options: item.options.map(o => ({ label: o, value: o })) }
+							//     : {}
+							// }
+						/>
+					);
+				})}
+			</ModalForm> */}
 		</>
 	);
 };

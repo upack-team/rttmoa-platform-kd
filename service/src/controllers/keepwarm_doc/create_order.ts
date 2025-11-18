@@ -26,69 +26,56 @@ class CreateOrder extends Basic {
 		super();
 	}
 
-	// 查询字段
-	private queryField: any = {
-		string_Field: ['time__c', 'order_no__c', 'enter_date__c', 'enter_ware__c', 'product_name__c', 'product_date__c', 'batch__c'],
-		number_Field: [],
-		// 日期查询： 1709222400000  |  "2024-05-03"  |   "2024-05-03T00:00:00.000Z"
-		date_Field: ['createTime'],
+	// * 返回给前端的 列配置 Column 的 Schema
+	// 如果有特殊处理render 返回其他Antd组件的需要 单独在前端去写、ColumnConfig中写
+	private FieldSchema: Record<
+		string,
+		{
+			label: string; // 必填：字段名称（前端 title）
+			type: 'string' | 'number' | 'date' | 'select'; // 必填
+			query?: boolean; // 是否参与查询
+			editable?: boolean; // 是否可行内编辑
+			width?: number; // 表格列宽
+			options?: string[]; // select 的下拉数据
+			order?: number // 列排序
+			sorter?: boolean // 可排序
+		}
+	> = {
+		time__c: { label: '时间', type: 'string', query: true, editable: true ,order:1},
+		order_no__c: { label: '入库单号', type: 'string', query: true, editable: true },
+		enter_date__c: { label: '入库日期', type: 'string', query: true, editable: true },
+		enter_ware__c: { label: '入库仓库', type: 'string', query: true, editable: true },
+
+		product_name__c: { label: '产品名称', type: 'string', query: true, editable: true },
+		product_date__c: { label: '生产日期', type: 'string', query: true, editable: true },
+		batch__c: { label: '批号', type: 'string', query: true, editable: true },
+
+		enter_num__c: { label: '入库数量', type: 'number', query: false, editable: true },
+		curr_num__c: { label: '当前数量', type: 'number', query: false, editable: true },
+
+		status__c: {
+			label: '状态',
+			type: 'select',
+			query: true,
+			editable: true,
+			options: ['未执行', '正在执行', '执行异常', '已完成'],
+		},
+
+		createTime: {
+			label: '创建时间',
+			type: 'date',
+			query: true,
+			editable: false,
+		},
 	};
-	private select_option = {
-		status__c: ['未执行', '正在执行', '执行异常', '已完成'],
-	};
 
-	// 新增/修改字段
-	private addOrModField = {
-		time__c: 'string',
-		order_no__c: 'string',
-		enter_date__c: 'string',
-		enter_ware__c: 'string',
-		product_no__c: 'string',
-		product_name__c: 'string',
-		specification__c: 'string',
-		unit__c: 'string',
-		product_date__c: 'string',
-		batch__c: 'string',
-
-		enter_num__c: 'number', // 前端输入时：输入框只能输入整数 (物料是整数)
-		curr_num__c: 'number',
-
-		status__c: 'select', // 未执行 | 正在执行 | 执行异常 | 已完成
-
-		createTime: 'date',
-	};
-
-	private QueryFilter = (data: any) => {
-		const query: Record<string, any> = {};
-		const search = _.get(data, 'search', {});
-
-		this.queryField.string_Field.forEach((field: any) => {
-			const val = _.trim(search[field]);
-			if (val) {
-				query[field] = { $regex: val, $options: 'i' };
-			}
-		});
-		this.queryField.number_Field.forEach((field: any) => {
-			const parsed = this.queryParseRange(search[field]);
-			if (parsed !== null) {
-				query[field] = parsed;
-			}
-		});
-		this.queryField.date_Field.forEach((field: any) => {
-			const parsed = this.queryParseDateRange(search[field]);
-			if (parsed !== null) {
-				query[field] = parsed;
-			}
-		});
-
-		return query;
-	};
+	 
 
 	Query = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
 
-			const query = this.QueryFilter(data);
+			const query = this.QueryFilter(data, this.FieldSchema);
 			console.log('query', query);
 
 			const page = _.clamp(_.toInteger(_.get(data, 'pagination.page', 1)), 1, Number.MAX_SAFE_INTEGER);
@@ -98,7 +85,7 @@ class CreateOrder extends Basic {
 
 			const [count, list] = await Promise.all([ctx.mongo.count('kd_keepwarm_doc__c', query), ctx.mongo.find('kd_keepwarm_doc__c', { query, page, pageSize, sort })]);
 
-			return ctx.send({ list, page, pageSize, total: count, select: this?.select_option || [] });
+			return ctx.send({ list, page, pageSize, total: count, schema: this.FieldSchema });
 		} catch (err: any) {
 			return ctx.sendError(500, err.message || '服务器错误');
 		}
@@ -110,7 +97,7 @@ class CreateOrder extends Basic {
 			// const exist = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { postName: _.trim(data?.postName) } });
 			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
 
-			const doc = this.addAndModField(data, this.addOrModField, this.select_option);
+			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,
 				createBy: null,
@@ -136,7 +123,7 @@ class CreateOrder extends Basic {
 			// });
 			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
 
-			const doc = this.addAndModField(data, this.addOrModField, this.select_option);
+			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,
 				updateBy: null,
@@ -154,7 +141,7 @@ class CreateOrder extends Basic {
 			const data: any = ctx.request.body;
 			if (data && data.length) {
 				for (const element of data) {
-					const doc = this.addAndModField(element, this.addOrModField, this.select_option);
+					const doc = this.addAndModField(data, this.FieldSchema);
 					const document: any = {
 						...doc,
 						createBy: 'admin',
