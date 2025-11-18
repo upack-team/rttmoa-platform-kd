@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.36](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.35...v2.4.36) (2025-11-18)
+
+### Features
+
+- 🚀 新增手动建单模块、优化前端列配置 ([f9b04cb](https://github.com/rttmoa/rttmoa-platform/commit/f9b04cb40872a1119fd83b40bdb45fea704a2c0e))
+- 🚀 优化 保温库手动创建单据 前后端统一字段属性设置 ([bd98c08](https://github.com/rttmoa/rttmoa-platform/commit/bd98c087189769baa97e8d656b8dbd0c30c179ff))
+
 ### [2.4.35](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.34...v2.4.35) (2025-11-17)
 
 ### Features
