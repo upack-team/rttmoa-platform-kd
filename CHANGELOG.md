@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.39](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.38...v2.4.39) (2025-11-19)
+
+
+### Features
+
+* 🚀 添加列行内编辑、将Modal中代码重构了、可复用的代码、前后端代码优化完成 ([366cfb5](https://github.com/rttmoa/rttmoa-platform/commit/366cfb50346e6461e32dc64724da52f734d7c19f))
+
 ### [2.4.38](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.37...v2.4.38) (2025-11-19)
 
 
