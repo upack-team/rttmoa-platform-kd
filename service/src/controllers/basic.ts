@@ -74,7 +74,7 @@ class Basic {
 		for (const field in FieldSchema) {
 			const cfg = FieldSchema[field];
 			const val = data[field];
-			if (val === undefined || val == '') continue; // 结束本次循环
+			if (val === undefined || val === null || val == '') continue; // 结束本次循环
 
 			switch (cfg.type) {
 				case 'string':
@@ -89,7 +89,7 @@ class Basic {
 					break;
 				}
 				case 'select': {
-					if (cfg.options.includes(val)) {
+					if (cfg.options.map((v:any) => v?.value).includes(val)) {
 						doc[field] = val;
 					}
 					break;

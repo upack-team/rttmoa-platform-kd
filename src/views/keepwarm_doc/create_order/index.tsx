@@ -10,6 +10,7 @@ import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
 import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
 import useColumnSchema from '@/hooks/useColumnSchema';
+import useFormSchema from '@/hooks/useFormSchema';
 
 // 新增表时：
 // 	1、前端修改路由、表格api查询等方法的修改
@@ -191,7 +192,10 @@ const useProTable = () => {
 	};
 
 	const columnsSchemaField = useColumnSchema(columnSchema);
+	const formSchemaField = useFormSchema(columnSchema); // buildFormSchema
 
+	// ! 这里列Column.tsx 和 弹窗 Modal.tsx都可以封装为复用的 组件了
+	// ! 包括一些其他的属性都可以封装为公共常用的
 	return (
 		<>
 			<ProTable<any>
@@ -266,11 +270,20 @@ const useProTable = () => {
 
 			{selectedRows?.length > 0 && <FooterComponent selectedRows={selectedRows} modalResult={modalResult} />}
 
-			<ModalComponent form={form} modalIsVisible={modalIsVisible} setModalIsVisible={setModalIsVisible} modalTitle={modalTitle} modalType={modalType} modalUserInfo={modalUserInfo} modalResult={modalResult} />
+			<ModalComponent
+				form={form}
+				modalIsVisible={modalIsVisible}
+				setModalIsVisible={setModalIsVisible}
+				modalTitle={modalTitle}
+				modalType={modalType}
+				modalUserInfo={modalUserInfo}
+				modalResult={modalResult}
+				formSchemaField={formSchemaField}
+			/>
 
 			<DrawerComponent
 				drawerIsVisible={drawerIsVisible}
-				drawerCurrentRow={{ ...drawerCurrentRow, name: drawerCurrentRow?.postName }}
+				drawerCurrentRow={{ ...drawerCurrentRow }}
 				drawerClose={() => {
 					setDrawerCurrentRow({});
 					setDrawerIsVisible(false);
@@ -280,31 +293,6 @@ const useProTable = () => {
 				modalResult={modalResult}
 				columnsSchemaField={columnsSchemaField}
 			/>
-
-			<ModalForm title='新增/编辑' open={true}>
-				{columnsSchemaField.map((field: any) => {
-					console.log('field', field);
-					const item: any = field;
-					if (!item.editable) return null;
-					console.log(columnsSchemaField);
-					return (
-						<ProFormItem
-							key={item?.dataIndex}
-							name={item?.dataIndex}
-							label={item?.title}
-							valueType={item?.valueType}
-							// fieldProps={''}
-							// fieldProps={
-							//   item.type === 'select'
-							//     ? { options: item.options.map(o => ({ label: o, value: o })) }
-							//     : {}
-							// }
-						/>
-					);
-				})}
-			</ModalForm>
-
-			{/* <ProFormText width='md' name='name' label='Contract Customer Name' tooltip='Up to 24 characters' placeholder='Please enter a name' /> */}
 		</>
 	);
 };

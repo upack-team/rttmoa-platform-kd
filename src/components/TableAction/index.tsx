@@ -53,12 +53,19 @@ import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 // };
 
 // * 操作：图标显示详情、编辑、删除
-export const TableEditIcon = (record: any, action: any) => {
-	// console.log('操作 entity： ', entity);
+export const TableEditIcon = (record: any, index: number, action: any) => {
+	// console.log('行内编辑操作 entity： ', action);
 	return (
 		<div key='operate' className='flex flex-row justify-around'>
 			{/* 行内编辑 */}
-			<div key='edit' className='bg-blue-300 hover:bg-blue-400 w-[30px] h-[22px] flex justify-center items-center rounded-[4px] cursor-pointer' onClick={() => action?.startEditable?.(record._id)}>
+			<div
+				key='edit'
+				className='bg-blue-300 hover:bg-blue-400 w-[30px] h-[22px] flex justify-center items-center rounded-[4px] cursor-pointer'
+				onClick={() => {
+					// console.log('点击', action);
+					action?.startEditable?.(record._id);
+				}}
+			>
 				<svg className='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='6928' width='16' height='16'>
 					<path
 						d='M862.709333 116.042667a32 32 0 1 1 45.248 45.248L455.445333 613.813333a32 32 0 1 1-45.258666-45.258666L862.709333 116.053333zM853.333333 448a32 32 0 0 1 64 0v352c0 64.8-52.533333 117.333333-117.333333 117.333333H224c-64.8 0-117.333333-52.533333-117.333333-117.333333V224c0-64.8 52.533333-117.333333 117.333333-117.333333h341.333333a32 32 0 0 1 0 64H224a53.333333 53.333333 0 0 0-53.333333 53.333333v576a53.333333 53.333333 0 0 0 53.333333 53.333333h576a53.333333 53.333333 0 0 0 53.333333-53.333333V448z'

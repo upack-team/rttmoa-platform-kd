@@ -126,13 +126,13 @@ export const ColumnsConfig = (modalOperate: any, modalResult: any): ProColumns<a
 			render: (_, record) => <span>{dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss')}</span>,
 			responsive: ['lg'],
 		},
-		{
-			title: '行内编辑',
-			valueType: 'option',
-			align: 'center',
-			width: 150,
-			render: (text, record, _, action) => TableEditIcon(record, action),
-		},
+		// {
+		// 	title: '行内编辑',
+		// 	valueType: 'option',
+		// 	align: 'center',
+		// 	width: 150,
+		// 	render: (text, record, _, action) => TableEditIcon(record, action),
+		// },
 		{
 			key: 'option',
 			title: '操作',

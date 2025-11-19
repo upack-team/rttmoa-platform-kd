@@ -41,6 +41,11 @@ class CreateOrder extends Basic {
 			fixed?: string; // 是否固定、默认不固定
 			order?: number; // 表格列顺序显示
 			sorter?: boolean; // 升序降序、默认可排序
+
+			// number类型 数值处理
+			int?: boolean // 是否整数
+			decimal?: boolean // 是否是小数
+			precision?: number // 保留几位小数
 		}
 	> = {
 		name: { label: '名称', type: 'string', sync: 'product_name__c' }, // 用于查看详情
@@ -54,8 +59,9 @@ class CreateOrder extends Basic {
 		product_date__c: { label: '生产日期', type: 'string', query: true, editable: true },
 		batch__c: { label: '批号', type: 'string', query: true, editable: true },
 
-		enter_num__c: { label: '入库数量', type: 'number', query: false, editable: true },
-		curr_num__c: { label: '当前数量', type: 'number', query: false, editable: true },
+		enter_num__c: { label: '入库数量', type: 'number', query: false, editable: true, int: true },
+		curr_num__c: { label: '当前数量', type: 'number', query: false, editable: true, int: true },
+		//  price__c: { label: "单价", type: "number", decimal: true, precision: 2 },
 
 		status__c: {
 			label: '状态',
@@ -132,6 +138,7 @@ class CreateOrder extends Basic {
 				updateBy: null,
 				updateTime: new Date(),
 			};
+			console.log('document', document);
 			await ctx.mongo.updateOne('kd_keepwarm_doc__c', id, document);
 			return ctx.send('修改成功');
 		} catch (err) {

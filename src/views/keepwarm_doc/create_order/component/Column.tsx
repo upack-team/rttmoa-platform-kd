@@ -1,9 +1,6 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { Avatar, Progress, Tag } from 'antd';
-import dayjs from 'dayjs';
 import { TableEditIcon, TableRenderAction } from '@/components/TableAction';
 import Link from 'antd/lib/typography/Link';
-import { UserOutlined } from '@ant-design/icons';
 
 export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSchemaField?: any): ProColumns<any>[] => {
 	// 处理后的列配置
@@ -26,7 +23,7 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSche
 			align: 'center',
 			fixed: 'right',
 			width: 150,
-			render: (text: any, record: any, action: any) => TableEditIcon(record, action),
+			render: (text: any, record: any, index: number, action: any) => TableEditIcon(record, index, action),
 		},
 		{
 			key: 'option',
