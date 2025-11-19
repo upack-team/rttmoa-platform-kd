@@ -21,7 +21,7 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSche
 	];
 	const t2 = [
 		{
-			title: '行内编辑',
+			title: <span className='text-[13px] font-sans'>行内编辑</span>,
 			valueType: 'option',
 			align: 'center',
 			fixed: 'right',
@@ -30,7 +30,7 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSche
 		},
 		{
 			key: 'option',
-			title: '操作',
+			title: <span className='text-[13px] font-sans'>操作</span>,
 			align: 'center',
 			fixed: 'right',
 			width: 135,

@@ -31,17 +31,21 @@ class CreateOrder extends Basic {
 	private FieldSchema: Record<
 		string,
 		{
+			sync?: string; // name：关联表名
 			label: string; // 必填：字段名称（前端 title）
 			type: 'string' | 'number' | 'date' | 'select'; // 必填
 			query?: boolean; // 是否参与查询
 			editable?: boolean; // 是否可行内编辑
-			width?: number; // 表格列宽
-			options?: string[]; // select 的下拉数据
-			order?: number // 列排序
-			sorter?: boolean // 可排序
+			width?: number; // 表格列宽、默认150
+			options?: Record<string, string>[]; // select 的下拉数据
+			fixed?: string; // 是否固定、默认不固定
+			order?: number; // 表格列顺序显示
+			sorter?: boolean; // 升序降序、默认可排序
 		}
 	> = {
-		time__c: { label: '时间', type: 'string', query: true, editable: true ,order:1},
+		name: { label: '名称', type: 'string', sync: 'product_name__c' }, // 用于查看详情
+		
+		time__c: { label: '时间', type: 'string', width: 150, query: true, editable: true, order: 1 },
 		order_no__c: { label: '入库单号', type: 'string', query: true, editable: true },
 		enter_date__c: { label: '入库日期', type: 'string', query: true, editable: true },
 		enter_ware__c: { label: '入库仓库', type: 'string', query: true, editable: true },
@@ -58,18 +62,17 @@ class CreateOrder extends Basic {
 			type: 'select',
 			query: true,
 			editable: true,
-			options: ['未执行', '正在执行', '执行异常', '已完成'],
+			options: [
+				{ label: '未执行', value: '未执行', color: 'default' },
+				{ label: '正在执行', value: '正在执行', color: 'processing' }, // processing | cyan | #24adf3
+				{ label: '执行异常', value: '执行异常', color: 'error' },
+				{ label: '已完成', value: '已完成', color: 'success' },
+			],
 		},
 
-		createTime: {
-			label: '创建时间',
-			type: 'date',
-			query: true,
-			editable: false,
-		},
+		createTime: { label: '创建时间', type: 'date', width: 150, query: true, editable: false },
+		updateTime: { label: '修改时间', type: 'date', width: 150, query: true, editable: false },
 	};
-
-	 
 
 	Query = async (ctx: Context) => {
 		try {

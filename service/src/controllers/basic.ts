@@ -70,6 +70,7 @@ class Basic {
 	addAndModField(data: any, FieldSchema: Record<string, any>) {
 		const doc: Record<string, any> = {};
 
+		// ①先处理用户提交的数据 → 转换格式
 		for (const field in FieldSchema) {
 			const cfg = FieldSchema[field];
 			const val = data[field];
@@ -96,6 +97,18 @@ class Basic {
 				default:
 					break;
 			}
+		}
+		// ②处理 schema.sync —— 自动字段映射
+		for (const field in FieldSchema) {
+			const cfg = FieldSchema[field];
+
+			if (!cfg.sync) continue;
+
+			// sync = "product_name__c" || 名称
+			if (typeof cfg.sync === 'string') {
+				doc[field] = data[cfg.sync] ?? "名称";
+			}
+ 
 		}
 
 		return doc;

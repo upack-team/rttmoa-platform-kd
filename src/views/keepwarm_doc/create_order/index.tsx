@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Form } from 'antd';
-import { ModalForm, ProFormItem, ProTable } from '@ant-design/pro-components';
+import { ModalForm, ProFormItem, ProFormText, ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
 import ColumnsConfig from './component/Column';
@@ -9,7 +9,6 @@ import ModalComponent from './component/Modal';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
 import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
-import { forIn } from 'lodash';
 import useColumnSchema from '@/hooks/useColumnSchema';
 
 // 新增表时：
@@ -159,11 +158,9 @@ const useProTable = () => {
 					},
 					sort: mappedSort,
 				};
-				// console.log('岗位搜索条件：', payload);
-				// console.log('岗位查询：', payload.search);
 
 				const { data }: any = await api.find(payload);
-				console.log('接口数据：', data);
+				// console.log('接口数据：', data);
 				setcolumnSchema(data?.schema || {});
 
 				setPagination((prev: any) => ({ ...prev, total: data.total }));
@@ -193,30 +190,14 @@ const useProTable = () => {
 		ImportData,
 	};
 
-	const pageConfig = {
-		size: 'default',
-		showQuickJumper: true,
-		showSizeChanger: true,
-		...pagination,
-		pageSizeOptions: [10, 15, 20, 30, 50],
-		onChange: (page: number, pageSize: number) => {
-			setPagination({ ...pagination, page, pageSize });
-		},
-		showTotal: () => `第 ${pagination.page} 页，共 ${pagination.total} 条`,
-	};
-
-	// const allWidth = ColumnsConfig().reduce((sum: any, col: any) => sum + (col?.width || 150), 0);
-
 	const columnsSchemaField = useColumnSchema(columnSchema);
-	// console.log('columnSchema', columnSchema);
-	// console.log('columns', handleColumnsData);
 
 	return (
 		<>
 			<ProTable<any>
 				rowKey='_id'
 				className='ant-pro-table-scroll'
-				scroll={{ x: 1000, y: '100vh' }} // 100vh
+				scroll={{ y: '100vh' }} // 100vh
 				headerTitle={tableName}
 				loading={loading}
 				formRef={formRef} // 可以获取到查询表单的 form 实例
@@ -229,7 +210,17 @@ const useProTable = () => {
 				toolBarRender={() => ToolBarRender(toolBarParams)} // 渲染工具栏
 				search={openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true }} // 搜索表单配置
 				request={handleRequest}
-				pagination={{ ...pageConfig }}
+				pagination={{
+					size: 'default',
+					showQuickJumper: true,
+					showSizeChanger: true,
+					...pagination,
+					pageSizeOptions: [10, 15, 20, 30, 50],
+					onChange: (page: number, pageSize: number) => {
+						setPagination({ ...pagination, page, pageSize });
+					},
+					showTotal: () => `第 ${pagination.page} 页，共 ${pagination.total} 条`,
+				}}
 				rowSelection={{
 					onChange: (selectedRowKeys, selectedRows) => setSelectedRows(selectedRows),
 				}}
@@ -289,22 +280,19 @@ const useProTable = () => {
 				modalResult={modalResult}
 				columnsSchemaField={columnsSchemaField}
 			/>
-			{/* <ModalForm
-				title='新增/编辑'
-				open={true}
-				// onFinish={async (values) => handleSubmit(values)}
-			>
-				{Object.keys(columnSchema).map((field: any) => {
-					// console.log('field', );
-					const item: any = columnSchema[field];
-					if (!item.editable) return null;
 
+			<ModalForm title='新增/编辑' open={true}>
+				{columnsSchemaField.map((field: any) => {
+					console.log('field', field);
+					const item: any = field;
+					if (!item.editable) return null;
+					console.log(columnsSchemaField);
 					return (
 						<ProFormItem
-							key={field}
-							name={field}
-							label={item.label}
-							valueType={item.type}
+							key={item?.dataIndex}
+							name={item?.dataIndex}
+							label={item?.title}
+							valueType={item?.valueType}
 							// fieldProps={''}
 							// fieldProps={
 							//   item.type === 'select'
@@ -314,7 +302,9 @@ const useProTable = () => {
 						/>
 					);
 				})}
-			</ModalForm> */}
+			</ModalForm>
+
+			{/* <ProFormText width='md' name='name' label='Contract Customer Name' tooltip='Up to 24 characters' placeholder='Please enter a name' /> */}
 		</>
 	);
 };
