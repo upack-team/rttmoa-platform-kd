@@ -98,7 +98,7 @@ const useColumnSchema = (schema: any) => {
 				// 3. ProTable 显示：渲染成 Tag
 				col.render = (_: any, record: any) => {
 					const val = record[field];
-					const cfg = opts.find((o: any) => o.value === val);
+					const cfg = opts.find((o: any) => o?.value === val);
 					return <Tag color={cfg?.color || 'default'}>{cfg?.label || val}</Tag>;
 				};
 

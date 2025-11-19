@@ -1,4 +1,4 @@
-import { ProFormDatePicker, ProFormDigit, ProFormSelect, ProFormText } from '@ant-design/pro-components';
+import { ProFormDateTimePicker, ProFormDigit, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 
 const renderFormItem = (item: any) => {
 	const fieldProps = item.fieldProps || {};
@@ -11,23 +11,10 @@ const renderFormItem = (item: any) => {
 			return <ProFormDigit name={item.name} label={item.label} colProps={{ span: 12 }} fieldProps={fieldProps} />;
 
 		case 'date':
-			return <ProFormDatePicker name={item.name} label={item.label} colProps={{ span: 12 }} />;
+			return <ProFormDateTimePicker name={item.name} label={item.label} colProps={{ span: 12 }} fieldProps={fieldProps} />;
 
 		case 'select':
-			return (
-				<ProFormSelect
-					name={item.name}
-					label={item.label}
-					colProps={{ span: 12 }}
-					fieldProps={{
-						options: item.options?.map((o: any) => ({
-							label: o.label,
-							value: o.value,
-							color: o.color,
-						})),
-					}}
-				/>
-			);
+			return <ProFormSelect name={item.name} label={item.label} colProps={{ span: 12 }} fieldProps={fieldProps} />;
 	}
 };
 export default renderFormItem;

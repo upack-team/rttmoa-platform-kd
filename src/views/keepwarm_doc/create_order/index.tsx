@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Form } from 'antd';
-import { ModalForm, ProFormItem, ProFormText, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
 import ColumnsConfig from './component/Column';
@@ -38,7 +38,7 @@ const useProTable = () => {
 
 	const [openSearch, setOpenSearch] = useState<boolean>(false); // 工具栏：开启关闭表单搜索
 	const [loading, setLoading] = useState<boolean>(false); // Loading：加载Loading
-	const [pagination, setPagination] = useState<any>({ page: 1, pageSize: 10, total: 0 }); // 分页数据
+	const [pagination, setPagination] = useState<any>({ page: 1, pageSize: 20, total: 0 }); // 分页数据
 	const [tableData, setTableData] = useState<any[]>([]); // 表格数据
 	const [selectedRows, setSelectedRows] = useState<any[]>([]); // 表格：选择行数据
 
