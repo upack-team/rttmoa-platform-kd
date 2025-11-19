@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.40](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.39...v2.4.40) (2025-11-19)
+
+
+### Bug Fixes
+
+* 🧩 优化hooks中usedFormSchema和renderFormItem函数、弹窗编辑时字段不可编辑 ([7d97c7d](https://github.com/rttmoa/rttmoa-platform/commit/7d97c7d2e97cad692e81deb533ed013141e00d67))
+
 ### [2.4.39](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.38...v2.4.39) (2025-11-19)
 
 
