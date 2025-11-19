@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.38](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.37...v2.4.38) (2025-11-19)
+
+
+### Features
+
+* 🚀 将处理服务端FieldSchema对象封装为useColumnSchema函数 ([b617ce9](https://github.com/rttmoa/rttmoa-platform/commit/b617ce9eedee80f00612a628dc26e37ee22dd67e))
+
 ### [2.4.37](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.36...v2.4.37) (2025-11-18)
 
 ### Bug Fixes
