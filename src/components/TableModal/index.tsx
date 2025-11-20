@@ -1,6 +1,5 @@
-import renderFormItem from '@/hooks/useFormRender';
+import renderFormItem from '@/hooks/useTabFormItem';
 import { ModalForm } from '@ant-design/pro-components';
-import { Button, Col, Form, Input, Modal, Radio, Row, Select, Space, Switch } from 'antd';
 import { useEffect } from 'react';
 
 const ModalComponent = (Params: any) => {

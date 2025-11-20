@@ -1,10 +1,8 @@
 import { FullscreenOutlined, PlusOutlined, SearchOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import Search from 'antd/lib/input/Search';
 import { useDispatch } from '@/redux';
 import { setGlobalState } from '@/redux/modules/global';
 import Excel from '@/components/TableExcel';
-import TableColumnsConfig from './Column';
 
 type ToolBarProps = {
 	quickSearch: () => void;
@@ -14,18 +12,19 @@ type ToolBarProps = {
 	tableName: string;
 	tableData: Array<any>[];
 	ImportData: (data: any) => void;
+	columnsCfg: any;
 };
 
 // * 渲染工具栏 组件
 const ToolBarRender = (props: ToolBarProps) => {
-	let { quickSearch, openSearch, setOpenSearch, modalOperate, tableData, tableName, ImportData } = props;
+	let { quickSearch, openSearch, setOpenSearch, modalOperate, tableData, tableName, ImportData, columnsCfg } = props;
 	const dispatch = useDispatch();
 
 	const CreateBtn = () => {
 		modalOperate('create', null);
 	};
 	// Excel 头
-	const excelHeader = TableColumnsConfig()
+	const excelHeader = columnsCfg
 		.filter((v: any) => {
 			return v?.title != '操作' && v?.title != '创建日期';
 		})
@@ -56,6 +55,9 @@ const ToolBarRender = (props: ToolBarProps) => {
 		// <Search placeholder='快捷搜索...' allowClear onSearch={quickSearch} style={{ width: 200 }} />,
 		<Button icon={<PlusOutlined />} onClick={CreateBtn}>
 			新建
+		</Button>,
+		<Button icon={<PlusOutlined />} onClick={CreateBtn}>
+			批量修改
 		</Button>,
 		<Excel
 			TableName={tableName} // 表格名称

@@ -6,6 +6,7 @@ type FooterComponentProps = {
 	selectedRows: any;
 	modalResult: (type: string, data: any) => void;
 };
+
 const FooterComponent: React.FC<FooterComponentProps> = props => {
 	const { selectedRows, modalResult } = props;
 	return (

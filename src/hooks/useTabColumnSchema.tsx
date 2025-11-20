@@ -2,7 +2,7 @@ import { Tag } from 'antd';
 import dayjs from 'dayjs';
 
 // ! 处理服务端 FieldSchema 对象定义的字段名称、字段类型、是否可查询、是否可行内编辑
-const useColumnSchema = (schema: any) => {
+const useTabColumnSchema = (schema: any) => {
 	const columnsField = [];
 
 	for (const field in schema) {
@@ -110,4 +110,4 @@ const useColumnSchema = (schema: any) => {
 	return columnsField;
 };
 
-export default useColumnSchema;
+export default useTabColumnSchema;

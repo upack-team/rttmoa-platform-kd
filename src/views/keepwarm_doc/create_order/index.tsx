@@ -3,20 +3,15 @@ import { Form } from 'antd';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
-import ColumnsConfig from './component/Column';
-import ToolBarRender from './component/ToolBar';
-import ModalComponent from './component/Modal';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
 import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
-import useColumnSchema from '@/hooks/useColumnSchema';
-import useFormSchema from '@/hooks/useFormSchema';
+import useTabColumnSchema from '@/hooks/useTabColumnSchema';
+import useTabFormSchema from '@/hooks/useTabFormSchema';
+import ColumnsConfig from '@/components/TableColumns';
+import ModalComponent from '@/components/TableModal';
+import ToolBarRender from '@/components/TableToolBar';
 
-// 新增表时：
-// 	1、前端修改路由、表格api查询等方法的修改
-// 	2、列字段修改 — Column.tsx
-// 	3、弹窗字段修改 — Modal.tsx
-// 常用字段：文本、数值、选择框、日期
 const useProTable = () => {
 	const tablePersistence = 'keepwarm_doc_create_order'; // 持久化 Key
 	const tableName = '保温库手动创建单据';
@@ -180,19 +175,20 @@ const useProTable = () => {
 		[api.find]
 	);
 
-	// * 工具栏 ToolBar
+	const columnsSchemaField = useTabColumnSchema(columnSchema);
+	const formSchemaField = useTabFormSchema(columnSchema); // buildFormSchema
+	const columnsCfg = ColumnsConfig(modalOperate, modalResult, columnsSchemaField);
+
 	let toolBarParams: any = {
-		quickSearch, // 工具栏：快捷搜索
+		quickSearch,
 		openSearch,
-		setOpenSearch, // 工具栏：开启表单搜索
+		setOpenSearch,
 		modalOperate,
 		tableName,
 		tableData,
 		ImportData,
+		columnsCfg,
 	};
-
-	const columnsSchemaField = useColumnSchema(columnSchema);
-	const formSchemaField = useFormSchema(columnSchema); // buildFormSchema
 
 	// ! 这里列Column.tsx 和 弹窗 Modal.tsx都可以封装为复用的 组件了
 	// ! 包括一些其他的属性都可以封装为公共常用的
@@ -210,7 +206,7 @@ const useProTable = () => {
 				cardBordered
 				dateFormatter='number'
 				defaultSize='small'
-				columns={ColumnsConfig(modalOperate, modalResult, columnsSchemaField)}
+				columns={columnsCfg}
 				toolBarRender={() => ToolBarRender(toolBarParams)} // 渲染工具栏
 				search={openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true }} // 搜索表单配置
 				request={handleRequest}

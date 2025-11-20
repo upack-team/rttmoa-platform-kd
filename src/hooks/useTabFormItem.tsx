@@ -1,6 +1,6 @@
 import { ProFormDateTimePicker, ProFormDigit, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 
-const renderFormItem = (item: any) => {
+const useTabFormItem = (item: any) => {
 	const fieldProps = item.fieldProps || {};
 
 	switch (item.type) {
@@ -17,4 +17,4 @@ const renderFormItem = (item: any) => {
 			return <ProFormSelect name={item.name} label={item.label} colProps={{ span: 12 }} fieldProps={fieldProps} />;
 	}
 };
-export default renderFormItem;
+export default useTabFormItem;

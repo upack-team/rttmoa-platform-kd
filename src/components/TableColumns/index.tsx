@@ -1,9 +1,8 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { TableEditIcon, TableRenderAction } from '@/components/TableAction';
+import { TableRowEdit, TableRenderAction } from '@/components/TableAction';
 import Link from 'antd/lib/typography/Link';
 
-export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSchemaField?: any): ProColumns<any>[] => {
-	// 处理后的列配置
+const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSchemaField?: any): ProColumns<any>[] => {
 	const columnsField = columnsSchemaField || [];
 	const t1 = [
 		{
@@ -23,7 +22,7 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSche
 			align: 'center',
 			fixed: 'right',
 			width: 150,
-			render: (text: any, record: any, index: number, action: any) => TableEditIcon(record, index, action),
+			render: (text: any, record: any, index: number, action: any) => TableRowEdit(record, index, action),
 		},
 		{
 			key: 'option',
@@ -34,7 +33,6 @@ export const ColumnsConfig = (modalOperate?: any, modalResult?: any, columnsSche
 			editable: () => false,
 			tooltip: '操作按钮分别是：详情、编辑、删除',
 			hideInSearch: true,
-			// render: renderAction,
 			render: (_: any, record: any) => TableRenderAction(record, modalOperate, modalResult),
 		},
 	];
