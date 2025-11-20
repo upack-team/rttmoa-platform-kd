@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.41](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.40...v2.4.41) (2025-11-20)
+
+
+### Features
+
+* 🚀 将Column.tsx Modal.tsx 抽离到components公共组件中了、还需继续优化 ([89c3516](https://github.com/rttmoa/rttmoa-platform/commit/89c3516ba0a80c59428a59c82c659fafd9a7ce51))
+
 ### [2.4.40](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.39...v2.4.40) (2025-11-19)
 
 
