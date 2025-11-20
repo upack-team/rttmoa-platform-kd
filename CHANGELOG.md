@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.42](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.41...v2.4.42) (2025-11-20)
+
+
+### Features
+
+* 🚀 将indextsx文件中函数抽离到hooks目录下、其他表格也可复用此函数、继续优化index.tsx文件 ([0206e4f](https://github.com/rttmoa/rttmoa-platform/commit/0206e4fa43cb7ca2fbdec81a7699bb56e8c1b28c))
+
 ### [2.4.41](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.40...v2.4.41) (2025-11-20)
 
 
