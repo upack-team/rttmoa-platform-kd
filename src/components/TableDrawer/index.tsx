@@ -4,12 +4,9 @@ import { Drawer, Empty, Typography } from 'antd';
 
 type DrawerComponentProps = {
 	drawerIsVisible: boolean;
-	drawerCurrentRow: {
-		name: string | undefined;
-		[key: string]: any;
-	};
+	drawerCurrentRow: any;
 	drawerClose: any;
-	columnsConfig: (modalOperate: any, modalResult: any, columnsData: any) => ProColumns<any>[];
+	columnsConfig: (Operate: any, Result: any, columns: any) => ProColumns<any>[];
 
 	modalOperate?: any;
 	modalResult?: any;
@@ -17,9 +14,11 @@ type DrawerComponentProps = {
 };
 const DrawerComponent: React.FC<DrawerComponentProps> = Params => {
 	const { drawerIsVisible, drawerCurrentRow, drawerClose, columnsConfig, modalOperate, modalResult, columnsSchemaField } = Params;
+
 	const col = columnsConfig(modalOperate, modalResult, columnsSchemaField) as ProDescriptionsItemProps<UserList>[];
 	const colConfig = col.map((value: any) => {
 		if (value.valueType == 'digit') value.valueType = 'text';
+		if (value.valueType == 'date') value.valueType = 'date';
 		return { ...value };
 	});
 

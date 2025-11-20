@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Form } from 'antd';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
@@ -11,6 +11,7 @@ import useTabFormSchema from '@/hooks/useTabFormSchema';
 import ColumnsConfig from '@/components/TableColumns';
 import ModalComponent from '@/components/TableModal';
 import ToolBarRender from '@/components/TableToolBar';
+import { debounce } from 'lodash';
 
 const useProTable = () => {
 	const tablePersistence = 'keepwarm_doc_create_order'; // 持久化 Key
@@ -158,8 +159,8 @@ const useProTable = () => {
 				const { data }: any = await api.find(payload);
 				// console.log('接口数据：', data);
 				setcolumnSchema(data?.schema || {});
-
 				setPagination((prev: any) => ({ ...prev, total: data.total }));
+
 				return {
 					data: data.list,
 					success: true,
@@ -190,8 +191,6 @@ const useProTable = () => {
 		columnsCfg,
 	};
 
-	// ! 这里列Column.tsx 和 弹窗 Modal.tsx都可以封装为复用的 组件了
-	// ! 包括一些其他的属性都可以封装为公共常用的
 	return (
 		<>
 			<ProTable<any>
