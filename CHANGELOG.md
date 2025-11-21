@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.43](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.42...v2.4.43) (2025-11-21)
+
+
+### Features
+
+* 🚀 添加了保温库的所有界面、前端路由和菜单已完成 ([1dbc6a6](https://github.com/rttmoa/rttmoa-platform/commit/1dbc6a6a896c1e2ee80ffa2badae8e798557f4d9))
+
+
+### Bug Fixes
+
+* 🧩 。、 ([cdb6c10](https://github.com/rttmoa/rttmoa-platform/commit/cdb6c1003eef81fe7917b9d97237c04d304a9abd))
+
 ### [2.4.42](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.41...v2.4.42) (2025-11-20)
 
 
