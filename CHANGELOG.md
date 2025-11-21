@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.44](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.43...v2.4.44) (2025-11-21)
+
+
+### Features
+
+* 🚀 添加保温库的其他界面、优化项目 ([bc76eeb](https://github.com/rttmoa/rttmoa-platform/commit/bc76eeb68972154a136d202ce4e499129c1dc94d))
+
 ### [2.4.43](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.42...v2.4.43) (2025-11-21)
 
 
