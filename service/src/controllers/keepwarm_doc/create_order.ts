@@ -103,9 +103,7 @@ class CreateOrder extends Basic {
 	Add = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
-			// const exist = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { postName: _.trim(data?.postName) } });
-			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
-
+	 
 			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,
@@ -125,13 +123,7 @@ class CreateOrder extends Basic {
 			const data: any = ctx.request.body;
 
 			if (!id) return ctx.sendError(400, `修改岗位操作：无iD`);
-
-			// 修改时、需排序修改内容的postName
-			// const exist = await ctx.mongo.find('kd_keepwarm_doc__c', {
-			// 	query: { postName: _.trim(data?.postName), _id: { $ne: id } },
-			// });
-			// if (exist.length) return ctx.sendError(400, `修改错误：已存在${data?.postName}`);
-
+ 
 			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,

@@ -1,9 +1,9 @@
 import { keepwarmDocAPI } from '@/api/modules/keepwarm_doc';
 
 export const dataConfig = () => {
-	const key = `keepwarmDocAPI`;
+	const key = ``;
 	const tableCache = `keepwarm_doc_${key}`;
-	const tableName = '保温库手动创建单据';
+	const tableName = '保温库货位分配规则（滞后）';
 
 	const api = {
 		find: keepwarmDocAPI.createFind,
