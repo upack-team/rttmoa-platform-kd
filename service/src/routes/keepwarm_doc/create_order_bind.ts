@@ -1,20 +1,20 @@
 import Router = require("@koa/router");
-import routes from "../../controllers/keepwarm_doc/create_order_bind";
+import Controllers from "../../controllers/keepwarm_doc/create_order_bind";
 const router = new Router();
+ 
 
-// Sys 测试模块
 
-router.post("/query", routes.Query);  // 查询
+router.post("/query", Controllers.Query);   
 
-router.post("/add", routes.Add); // 增加
+router.post("/add", Controllers.Add);  
 
-router.put("/mod/:id", routes.Mod); // 修改
+router.put("/mod/:id", Controllers.Mod);  
 
-router.delete("/del/:id", routes.Del);  // 删除
+router.delete("/del/:id", Controllers.Del);  
 
-router.post("/delMore", routes.DelMore);  // 删除更多
+router.post("/delMore", Controllers.DelMore);  
 
-router.post("/importEx", routes.ImportEx);  // 导入Excel表格
+router.post("/importEx", Controllers.ImportEx);   
 
  
 export default router;

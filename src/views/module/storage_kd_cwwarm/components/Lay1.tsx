@@ -57,11 +57,12 @@ interface DataType {
 function titleFN(data: number, record?: any, index?: number, apiData?: any) {
 	// console.log('titleFN', data, record, index, apiData);
 
-
 	if ([7, 17, 25].includes(record?.row__c)) {
-		return <div className='py-1 px-2 text-center font-sans' style={{ backgroundColor: "#f2f702", }}>
-			过道
-		</div>
+		return (
+			<div className='py-1 px-2 text-center font-sans' style={{ backgroundColor: '#f2f702' }}>
+				过道
+			</div>
+		);
 	}
 
 	if (!data) {
@@ -95,42 +96,39 @@ function titleFN(data: number, record?: any, index?: number, apiData?: any) {
 	// 			<div className='w-[80px] px-[4px] py-[6px]  text-center text-[12px] bg-[#b4b4b4] text-[#ffffff]'>禁用</div>
 	return (
 		<Tooltip
-			placement="top"
-			color="#fff"
-			style={{ width: "100%", backgroundColor: "#fff" }}
+			placement='top'
+			color='#fff'
+			style={{ width: '100%', backgroundColor: '#fff' }}
 			overlayInnerStyle={{
 				maxWidth: 'unset', // 不限制 tooltip 内容宽度
 				padding: 0, // 去除默认 padding
 			}}
 			title={
 				<div style={{ maxWidth: 'none' }}>
-					<table className="border-collapse text-slate-700 min-w-[1000px]">
+					<table className='border-collapse text-slate-700 min-w-[1000px]'>
 						<thead>
 							<tr>
-								<th className="w-[250px] text-[12px] text-center whitespace-nowrap">仓位</th>
-								<th className="w-[250px] text-[12px] text-center whitespace-nowrap">物料名称</th>
-								<th className="w-[150px] text-[12px] text-center whitespace-nowrap">生产日期</th>
-								<th className="w-[350px] text-[12px] text-center whitespace-nowrap">批次</th>
-								<th className="w-[350px] text-[12px] text-center whitespace-nowrap">托盘号</th>
+								<th className='w-[250px] text-[12px] text-center whitespace-nowrap'>仓位</th>
+								<th className='w-[250px] text-[12px] text-center whitespace-nowrap'>物料名称</th>
+								<th className='w-[150px] text-[12px] text-center whitespace-nowrap'>生产日期</th>
+								<th className='w-[350px] text-[12px] text-center whitespace-nowrap'>批次</th>
+								<th className='w-[350px] text-[12px] text-center whitespace-nowrap'>托盘号</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td className="text-[12px] text-center whitespace-nowrap">{position}</td>
-								<td className="text-[12px] text-center whitespace-nowrap">食品火腿肠</td>
-								<td className="text-[12px] text-center whitespace-nowrap">2020-11-19 12:32:00</td>
-								<td className="text-[12px] text-center whitespace-nowrap">500箱0根</td>
-								<td className="text-[12px] text-center whitespace-nowrap">T123456789</td>
+								<td className='text-[12px] text-center whitespace-nowrap'>{position}</td>
+								<td className='text-[12px] text-center whitespace-nowrap'>食品火腿肠</td>
+								<td className='text-[12px] text-center whitespace-nowrap'>2020-11-19 12:32:00</td>
+								<td className='text-[12px] text-center whitespace-nowrap'>500箱0根</td>
+								<td className='text-[12px] text-center whitespace-nowrap'>T123456789</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			}
 		>
-			<div
-				className="py-1 px-2 text-center font-sans cursor-pointer"
-				style={{ backgroundColor: color, color: 'white', whiteSpace: 'nowrap' }}
-			>
+			<div className='py-1 px-2 text-center font-sans cursor-pointer' style={{ backgroundColor: color, color: 'white', whiteSpace: 'nowrap' }}>
 				{str}
 			</div>
 		</Tooltip>
@@ -446,7 +444,6 @@ const columns = (apiData: any) => [
 	},
 ];
 
-
 const CurrLay = 1;
 let groupedData: any[] = [];
 const Lane: React.FC = () => {
@@ -461,12 +458,7 @@ const Lane: React.FC = () => {
 			// console.log('data =====', data);
 			const rawData = data.data.filter((v: any) => v.lay__c == CurrLay);
 
-
-			rawData.push(
-				{ row__c: 7, lay__c: CurrLay, },
-				{ row__c: 17, lay__c: CurrLay, },
-				{ row__c: 25, lay__c: CurrLay, },
-			)
+			rawData.push({ row__c: 7, lay__c: CurrLay }, { row__c: 17, lay__c: CurrLay }, { row__c: 25, lay__c: CurrLay });
 			setApiData(rawData);
 			rawData.forEach((item: any) => {
 				const { row__c, lay__c, col__c } = item;
@@ -543,7 +535,7 @@ const Lane: React.FC = () => {
 			columns={apiData ? (columns(apiData) as any) : []}
 			dataSource={data}
 			// scroll={{ x: "max-content" }}
-			scroll={{ x: columns(data).length * 150, y: 700 }}
+			scroll={{ x: columns(data).length * 150, y: '800px' }}
 			pagination={false}
 		/>
 	);

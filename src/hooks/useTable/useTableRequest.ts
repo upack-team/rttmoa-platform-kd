@@ -6,7 +6,7 @@ import { message } from '@/hooks/useMessage';
 // * 搜索条件类型为：字符串、数字、日期、筛选比如男女这样的等格式测试
 // * 表头搜索、排序搜索、分页搜索等
 // * 排序：每个字段排序、不可多个字段排序
-export default function useTableRequest(api: any, setLoading: any, setSchema: any, setPagination: any) {
+export default function useTableRequest(api?: any, setLoading?: any, setSchema?: any, setPagination?: any) {
 	const handleRequest = useCallback(
 		async (params: any, sort: any, filter: any) => {
 			setLoading(true);

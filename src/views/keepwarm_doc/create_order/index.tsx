@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Form } from 'antd';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
-import useTabColumnSchema from '@/hooks/useTabColumnSchema';
-import useTabFormSchema from '@/hooks/useTabFormSchema';
+import useTabColumnSchema from '@/hooks/useTableSchema/useTabColumnSchema';
+import useTabFormSchema from '@/hooks/useTableSchema/useTabFormSchema';
 import ColumnsConfig from '@/components/TableColumns';
 import ModalComponent from '@/components/TableModal';
 import ToolBarRender from '@/components/TableToolBar';
@@ -22,7 +22,6 @@ const useProTable = () => {
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const [columnSchema, setcolumnSchema] = useState<any>({});
-
 	const { handleRequest } = useTableRequest(api, setLoading, setcolumnSchema, setPagination);
 
 	const searchSpan = useSearchSpan(); // 根据屏幕宽度自动计算 FormItem span
@@ -111,8 +110,9 @@ const useProTable = () => {
 	);
 
 	const columnsSchemaField = useTabColumnSchema(columnSchema);
-	const formSchemaField = useTabFormSchema(columnSchema); // buildFormSchema
-	const columnsCfg = ColumnsConfig(modalOperate, modalResult, columnsSchemaField);
+	const formSchemaField = useTabFormSchema(columnSchema);
+	const tableOps = columnSchema?.__ops__ || {};
+	const columnsCfg = ColumnsConfig(modalOperate, modalResult, columnsSchemaField, tableOps);
 
 	let toolBarParams: any = {
 		quickSearch,
@@ -123,6 +123,7 @@ const useProTable = () => {
 		tableData,
 		ImportData,
 		columnsCfg,
+		ops: tableOps,
 	};
 
 	return (
@@ -186,7 +187,7 @@ const useProTable = () => {
 				}}
 			/>
 
-			{selectedRows?.length > 0 && <FooterComponent selectedRows={selectedRows} modalResult={modalResult} />}
+			{selectedRows?.length > 0 && tableOps?.allowBatchDelete !== false && <FooterComponent selectedRows={selectedRows} modalResult={modalResult} />}
 
 			<ModalComponent
 				form={form}

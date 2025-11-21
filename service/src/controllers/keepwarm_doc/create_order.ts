@@ -43,13 +43,13 @@ class CreateOrder extends Basic {
 			sorter?: boolean; // 升序降序、默认可排序
 
 			// number类型 数值处理
-			int?: boolean // 是否整数
-			decimal?: boolean // 是否是小数
-			precision?: number // 保留几位小数
+			int?: boolean; // 是否整数
+			decimal?: boolean; // 是否是小数
+			precision?: number; // 保留几位小数
 		}
 	> = {
 		name: { label: '名称', type: 'string', sync: 'product_name__c' }, // 用于查看详情
-		
+
 		time__c: { label: '时间', type: 'string', width: 150, query: true, editable: true, order: 1 },
 		order_no__c: { label: '入库单号', type: 'string', query: true, editable: true },
 		enter_date__c: { label: '入库日期', type: 'string', query: true, editable: true },
@@ -80,6 +80,16 @@ class CreateOrder extends Basic {
 		updateTime: { label: '修改时间', type: 'date', width: 150, query: true, editable: false },
 	};
 
+	private TableOps = {
+		allowCreate: true,
+		allowEdit: true,
+		allowDelete: true,
+		allowRowEdit: true,
+		allowBatchDelete: true,
+		allowBatchEdit: true,
+		allowImport: true,
+	};
+
 	Query = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
@@ -94,7 +104,9 @@ class CreateOrder extends Basic {
 
 			const [count, list] = await Promise.all([ctx.mongo.count('kd_keepwarm_doc__c', query), ctx.mongo.find('kd_keepwarm_doc__c', { query, page, pageSize, sort })]);
 
-			return ctx.send({ list, page, pageSize, total: count, schema: this.FieldSchema });
+			const schema: any = { ...this.FieldSchema, __ops__: this.TableOps };
+
+			return ctx.send({ list, page, pageSize, total: count, schema });
 		} catch (err: any) {
 			return ctx.sendError(500, err.message || '服务器错误');
 		}
@@ -103,7 +115,7 @@ class CreateOrder extends Basic {
 	Add = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
-	 
+
 			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,
@@ -123,7 +135,7 @@ class CreateOrder extends Basic {
 			const data: any = ctx.request.body;
 
 			if (!id) return ctx.sendError(400, `修改岗位操作：无iD`);
- 
+
 			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
 				...doc,

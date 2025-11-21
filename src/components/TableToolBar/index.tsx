@@ -13,11 +13,12 @@ type ToolBarProps = {
 	tableData: Array<any>[];
 	ImportData: (data: any) => void;
 	columnsCfg: any;
+	ops?: { allowCreate?: boolean; allowBatchEdit?: boolean };
 };
 
 // * 渲染工具栏 组件
 const ToolBarRender = (props: ToolBarProps) => {
-	let { quickSearch, openSearch, setOpenSearch, modalOperate, tableData, tableName, ImportData, columnsCfg } = props;
+	let { quickSearch, openSearch, setOpenSearch, modalOperate, tableData, tableName, ImportData, columnsCfg, ops } = props;
 	const dispatch = useDispatch();
 
 	const CreateBtn = () => {
@@ -53,12 +54,16 @@ const ToolBarRender = (props: ToolBarProps) => {
 
 	return [
 		// <Search placeholder='快捷搜索...' allowClear onSearch={quickSearch} style={{ width: 200 }} />,
-		<Button icon={<PlusOutlined />} onClick={CreateBtn}>
-			新建
-		</Button>,
-		<Button icon={<PlusOutlined />} onClick={CreateBtn}>
-			批量修改
-		</Button>,
+		ops?.allowCreate !== false && (
+			<Button icon={<PlusOutlined />} onClick={CreateBtn}>
+				新建
+			</Button>
+		),
+		ops?.allowBatchEdit !== false && (
+			<Button icon={<PlusOutlined />} onClick={CreateBtn}>
+				批量修改
+			</Button>
+		),
 		<Excel
 			TableName={tableName} // 表格名称
 			tableHeaders={excelHeader} // 表头数据

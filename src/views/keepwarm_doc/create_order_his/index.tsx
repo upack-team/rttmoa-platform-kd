@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Form } from 'antd';
 import { ProTable } from '@ant-design/pro-components';
@@ -47,7 +48,7 @@ const useProTable = () => {
 	const [modalType, setModalType] = useState<'create' | 'edit' | 'detail'>('create');
 	const [modalUserInfo, setModalUserInfo] = useState<any>({});
 
-	// 操作：创建、编辑、详情
+	// Modal 操作：创建、编辑、详情
 	const modalOperate = (type: 'create' | 'edit' | 'detail', item?: any) => {
 		setModalType(type);
 		if (type === 'detail') {
@@ -60,7 +61,7 @@ const useProTable = () => {
 		}
 	};
 
-	// * 操作 — 新建、编辑、详情  弹窗内容提交
+	// * 操作 — 员工： 新建、编辑、详情  弹窗内容提交
 	const modalResult = useCallback(
 		async (type: string, item: any) => {
 			try {
@@ -141,16 +142,7 @@ const useProTable = () => {
 				defaultSize='small'
 				columns={columnsCfg}
 				toolBarRender={() => ToolBarRender(toolBarParams)} // 渲染工具栏
-				search={
-					openSearch
-						? false
-						: {
-								labelWidth: 'auto',
-								filterType: 'light', // 使用轻量搜索模式，支持实时搜索
-								span: searchSpan,
-								showHiddenNum: true,
-							}
-				} // 搜索表单配置
+				search={openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true }} // 搜索表单配置
 				request={handleRequest}
 				pagination={paginationProps}
 				rowSelection={{

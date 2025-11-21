@@ -6,6 +6,7 @@ const useTabColumnSchema = (schema: any) => {
 	const columnsField = [];
 
 	for (const field in schema) {
+		if (String(field).startsWith('__')) continue;
 		const item = schema[field];
 
 		let col: any = {

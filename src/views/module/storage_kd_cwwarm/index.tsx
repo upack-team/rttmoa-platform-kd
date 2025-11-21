@@ -41,7 +41,7 @@ const items: TabsProps['items'] = [
 const Storage: React.FC = () => {
 	return (
 		<div className='scada-container flex h-full'>
-			<Card className='w-full h-full'>
+			<Card className='w-full '>
 				<Tabs defaultActiveKey='1' items={items} onChange={onChange} />
 			</Card>
 		</div>

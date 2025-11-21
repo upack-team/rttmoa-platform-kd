@@ -216,21 +216,25 @@ class Menu extends Basic {
 			console.log('新增菜单参数：', data);
 
 			// * 2、查询数据库有无相同key和path、必须保证key和apth唯一
-			const path = _.trim(_.get(data, 'path', ''));
+			const p = _.trim(_.get(data, 'path', ''));
+			const path = String.raw`${p}`.replace(/\\/g, '/');
+
 			const key = _.trim(_.get(data, 'key', ''));
 			const exists = await ctx.mongo.find('__menu', { query: { $or: [{ path }, { key }] } });
 			if (exists.length > 0) {
-				if (exists[0].path === path) return ctx.sendError(400, `新增菜单失败：已经存在 path 为 ${path}`);
-				if (exists[0].key === key) return ctx.sendError(400, `新增菜单失败：已经存在 key 为 ${key}`);
+				if (exists[0]?.path === path) return ctx.sendError(400, `新增菜单失败：已经存在 path 为 ${path}`);
+				if (exists[0]?.key === key) return ctx.sendError(400, `新增菜单失败：已经存在 key 为 ${key}`);
 			}
 
 			// * 新增时、如果上一级状态是关闭、那么新增的子菜单状态也是关闭状态
 			// console.log('上级菜单：', data?.parent_id); // 0 | auth
 			let enableStatus = data?.enable;
+			let sortPlus = 1;
 			if (data?.parent_id != 0) {
 				// 当不是顶级菜单时
-				const exists = await ctx.mongo.find('__menu', { query: { key: data?.parent_id } });
+				const exists = await ctx.mongo.find('__menu', { query: { key: data?.parent_id }, sort: { sort: -1 } });
 				if (exists.length) {
+					sortPlus = exists[0].sort + 10;
 					if (exists[0].enable == '关闭') enableStatus = '关闭';
 				}
 			}
@@ -241,14 +245,21 @@ class Menu extends Basic {
 			function delStr(str: string) {
 				const handleStr = String(str || '').trim();
 				if (handleStr == '') return null;
-				else return handleStr;
+				else {
+					if (str.includes('\\')) {
+						return str.replace(/\\/g, '/');
+					} else {
+						return handleStr;
+					}
+				}
 			}
+
 			let fDoc: any = {
 				parent_id: data?.parent_id, // 父级菜单 ID（顶层为 0）
 				type: delStr(data?.type), // 菜单类型： 目录 | 菜单 | 按钮
-				path: delStr(data?.path), // 路由路径 /home/index |  /auth/button
-				element: delStr(data?.element), // 组件路径 /home/index | /auth/button/index
-				redirect: delStr(data?.redirect), // 重定向路径，如 /auth/page
+				path: delStr(data?.path ? String.raw`${data?.path}` : ''), // 路由路径 /home/index |  /auth/button
+				element: delStr(data?.element ? String.raw`${data?.element}` : ''), // 组件路径 /home/index | /auth/button/index
+				redirect: delStr(data?.redirect ? String.raw`${data?.redirect}` : ''), // 重定向路径，如 /auth/page
 				key: delStr(data?.key), // 菜单唯一标识，如 authButton
 				title: delStr(data?.title), // 菜单标题
 				icon: delStr(data?.icon), // 图标名，如 LockOutlined
@@ -256,7 +267,7 @@ class Menu extends Basic {
 				is_hide: data?.isHide == '是' ? 1 : 0, // 是否隐藏菜单项（0 否，1 是）
 				is_full: data?.isFull == '是' ? 1 : 0, // 是否全屏显示页面
 				is_affix: data?.isAffix == '是' ? 1 : 0, // 是否固定标签页
-				sort: +data?.sort || 1, // 显示排序: 1-9999
+				sort: +data?.sort == 1 ? sortPlus : +data?.sort, // 显示排序: 1-9999
 				enable: enableStatus, // 是否开启菜单
 				created_at: new Date(),
 				updated_at: new Date(),
@@ -276,8 +287,7 @@ class Menu extends Basic {
 			console.log('更新菜单参数：', data);
 
 			const findMenu = await ctx.mongo.find('__menu', { query: { _id: data?._id } });
-			// console.log('findMenu', findMenu);
-			if (!findMenu.length) return ctx.sendError(400, '修改菜单失败：数据错误，根据id查找、数据未找到');
+			if (findMenu.length == 0) return ctx.sendError(400, '修改菜单失败：数据错误，根据id查找、数据未找到');
 
 			// 通用唯一性校验函数
 			async function checkUniqueField(ctx: any, collection: string, field: string, value: string, excludeId?: string): Promise<void> {
@@ -301,15 +311,12 @@ class Menu extends Basic {
 				return ctx.sendError(400, err.message);
 			}
 
-
-			console.log('findMenu', findMenu);
 			// ! 更新菜单时、如果最顶级菜单为关闭时、那么子菜单全部关闭才可以
 			if (data.enable == '关闭') {
 				const currentKey = findMenu[0].key; // auth 获取当前key、寻找下级
 				const KeyArr = await ctx.mongo.find('__menu', { query: { parent_id: currentKey } });
 				if (KeyArr.length) {
 					for (const element of KeyArr) {
-						console.log('element.enable', element.enable);
 						if (element.enable && element.enable != '关闭') {
 							return ctx.sendError(400, '更新菜单：当前节点下，将子节点修改为关闭状态');
 						}
@@ -323,32 +330,34 @@ class Menu extends Basic {
 				const superStatus = findMenu[0].parent_id; // 获取当前节点、寻找上级
 				if (superStatus != 0) {
 					const KeyArr = await ctx.mongo.find('__menu', { query: { key: superStatus } });
-					console.log('KeyArr', KeyArr);
 					if (KeyArr.length) {
 						for (const element of KeyArr) {
 							if (element.enable != '开启') return ctx.sendError(400, '更新菜单：开启当前节点，需要将上级节点修改为开启状态');
 						}
 					}
 				}
-			} 
-
-
-			// return
+			}
 
 			// * 3、如果修改了菜单、从二级菜单变到了其他二级菜单、需要修改 parent_id
 			function delStr(str: string) {
-				const value = String(str || '').trim();
-				if (value == '') return null;
-				return value;
+				const handleStr = String(str || '').trim();
+				if (handleStr == '') return null;
+				else {
+					if (str.includes('\\')) {
+						return str.replace(/\\/g, '/');
+					} else {
+						return handleStr;
+					}
+				}
 			}
 			let fDoc: any = {
 				// * 注意：新增与修改传递的top数组不一致、修改时、传递的是当前菜单、不是上一级菜单
 				parent_id: data?.parent_id,
 
 				type: delStr(data?.type),
-				path: delStr(data?.path),
-				element: delStr(data?.element),
-				redirect: delStr(data?.redirect),
+				path: delStr(String(data?.path).trim() ? String.raw`${data?.path}` : ''), // 路由路径 /home/index |  /auth/button
+				element: delStr(String(data?.element).trim() ? String.raw`${data?.element}` : ''), // 组件路径 /home/index | /auth/button/index
+				redirect: delStr(String(data?.redirect).trim() ? String.raw`${data?.redirect}` : ''), // 重定向路径，如 /auth/page
 				key: delStr(data?.key),
 				title: delStr(data?.title),
 				icon: delStr(data?.icon),
@@ -392,7 +401,3 @@ class Menu extends Basic {
 }
 
 export default new Menu();
-
-
-
- 
