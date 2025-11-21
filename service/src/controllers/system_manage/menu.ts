@@ -244,7 +244,7 @@ class Menu extends Basic {
 			// * 4、编辑菜单对象
 			function delStr(str: string) {
 				const handleStr = String(str || '').trim();
-				if (handleStr == '') return null;
+				if (handleStr == '') return "";
 				else {
 					if (str.includes('\\')) {
 						return str.replace(/\\/g, '/');
@@ -349,15 +349,15 @@ class Menu extends Basic {
 						return handleStr;
 					}
 				}
-			}
+			} 
 			let fDoc: any = {
 				// * 注意：新增与修改传递的top数组不一致、修改时、传递的是当前菜单、不是上一级菜单
 				parent_id: data?.parent_id,
 
 				type: delStr(data?.type),
-				path: delStr(String(data?.path).trim() ? String.raw`${data?.path}` : ''), // 路由路径 /home/index |  /auth/button
-				element: delStr(String(data?.element).trim() ? String.raw`${data?.element}` : ''), // 组件路径 /home/index | /auth/button/index
-				redirect: delStr(String(data?.redirect).trim() ? String.raw`${data?.redirect}` : ''), // 重定向路径，如 /auth/page
+				path: delStr(data?.path ? String.raw`${data?.path}` : ''), // 路由路径 /home/index |  /auth/button
+				element: delStr(data?.element ? String.raw`${data?.element}` : ''), // 组件路径 /home/index | /auth/button/index
+				redirect: delStr(data?.redirect ? String.raw`${data?.redirect}` : ''), // 重定向路径，如 /auth/page
 				key: delStr(data?.key),
 				title: delStr(data?.title),
 				icon: delStr(data?.icon),
@@ -368,7 +368,7 @@ class Menu extends Basic {
 				sort: +data?.sort || 1,
 				enable: delStr(data?.enable),
 				updated_at: new Date(),
-			};
+			}; 
 			await ctx.mongo.updateOne('__menu', findMenu[0]._id, fDoc);
 			return ctx.send('更新菜单成功');
 		} catch (err) {

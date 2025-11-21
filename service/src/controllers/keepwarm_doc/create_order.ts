@@ -81,13 +81,13 @@ class CreateOrder extends Basic {
 	};
 
 	private TableOps = {
-		allowCreate: true,
-		allowEdit: true,
-		allowDelete: true,
-		allowRowEdit: true,
-		allowBatchDelete: true,
-		allowBatchEdit: true,
-		allowImport: true,
+		allowCreate: true, // 新建
+		allowEdit: true, // 编辑
+		allowDelete: true, // 删除
+		allowRowEdit: true, // 行编辑
+		allowBatchDelete: true, // 批量删除
+		allowBatchEdit: true, // 批量编辑
+		allowImport: true, // 允许导入
 	};
 
 	Query = async (ctx: Context) => {
@@ -123,7 +123,7 @@ class CreateOrder extends Basic {
 				createTime: new Date(),
 			};
 			const ins = await ctx.mongo.insertOne('kd_keepwarm_doc__c', document);
-			return ctx.send(`测试新增部门!`);
+			return ctx.send(`添加数据成功！!`);
 		} catch (err) {
 			return ctx.sendError(500, err.message);
 		}
@@ -134,7 +134,7 @@ class CreateOrder extends Basic {
 			const id = ctx.params.id;
 			const data: any = ctx.request.body;
 
-			if (!id) return ctx.sendError(400, `修改岗位操作：无iD`);
+			if (!id) return ctx.sendError(400, `修改操作：无iD`);
 
 			const doc = this.addAndModField(data, this.FieldSchema);
 			const document: any = {
