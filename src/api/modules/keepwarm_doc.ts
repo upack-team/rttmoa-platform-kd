@@ -15,14 +15,6 @@ export class keepwarmDocAPI {
 	static delMore = (data: string[]) => http.post(`${this.create}/delMore`, data);
 	static importEx = (params: Params) => http.post(`${this.create}/importEx`, params);
 
-	// 兼容历史配置命名
-	static createFind = (params: Params) => this.find(params);
-	static createAdd = (params: Params) => this.add(params);
-	static createMod = (id: string, params: Params) => this.mod(id, params);
-	static createDel = (id: string) => this.del(id);
-	static createDelMore = (data: string[]) => this.delMore(data);
-	static createImportEx = (params: Params) => this.importEx(params);
-
 	// ======= createOrderBind =======
 	static bindFind = (params: Params) => http.post(`${this.bind}/query`, params);
 	static bindAdd = (params: Params) => http.post(`${this.bind}/add`, params);

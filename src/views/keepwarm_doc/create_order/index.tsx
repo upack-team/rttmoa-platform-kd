@@ -1,4 +1,4 @@
-import { ProTable } from '@ant-design/pro-components';
+import { ProTable, ProTableProps } from '@ant-design/pro-components';
 import DrawerComponent from '@/components/TableDrawer';
 import FooterComponent from '@/components/TableFooter';
 import ModalComponent from '@/components/TableModal';

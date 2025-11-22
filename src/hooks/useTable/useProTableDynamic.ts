@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Form } from 'antd';
 import type { ActionType, FormInstance } from '@ant-design/pro-components';
 import { message } from '@/hooks/useMessage';
@@ -9,13 +9,14 @@ import ToolBarRender from '@/components/TableToolBar';
 import { usePagination } from '@/hooks/useTable/usePagination';
 import { useSearchSpan } from '@/hooks/useTable/useSearchSpan';
 import useTableRequest from '@/hooks/useTable/useTableRequest';
+import _ from 'lodash';
 
 const useProTableDynamic = ({ api }: any) => {
 	const { setPagination, paginationProps } = usePagination();
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const [columnSchema, setcolumnSchema] = useState<any>({});
-	const [tableInfo, setTableInfo] = useState<any>({ tableName: '', collection: '' }); // 表名,集合名
+	const [tableInfo, setTableInfo] = useState<any>({ tableName: '', collection: '' });
 	const { tableName, collection } = tableInfo;
 	const { handleRequest } = useTableRequest(api, setLoading, setcolumnSchema, setPagination, setTableInfo);
 
@@ -105,6 +106,20 @@ const useProTableDynamic = ({ api }: any) => {
 	const tableOps = columnSchema?.__ops__ || {};
 	const columnsCfg = ColumnsConfig(modalOperate, modalResult, columnsSchemaField, tableOps);
 
+	// * 表头搜索条件变化自动调用服务端
+	const debouncedSubmit = useMemo(
+		() =>
+			_.debounce(() => {
+				formRef.current?.submit?.();
+			}, 500),
+		[]
+	);
+	useEffect(() => {
+		return () => {
+			debouncedSubmit.cancel();
+		};
+	}, [debouncedSubmit]);
+
 	const toolBarParams: any = {
 		quickSearch,
 		openSearch,
@@ -131,8 +146,12 @@ const useProTableDynamic = ({ api }: any) => {
 		defaultSize: 'small',
 		columns: columnsCfg,
 		toolBarRender: () => ToolBarRender(toolBarParams),
+		// 表头查询方式： query | light
 		search: openSearch ? false : { labelWidth: 'auto', filterType: 'query', span: searchSpan, showHiddenNum: true },
 		request: handleRequest,
+		form: {
+			onValuesChange: () => debouncedSubmit(),
+		},
 		pagination: paginationProps,
 		rowSelection: {
 			onChange: (_: any, rows: any[]) => setSelectedRows(rows),

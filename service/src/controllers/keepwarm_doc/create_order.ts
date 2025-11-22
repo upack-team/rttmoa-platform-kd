@@ -30,8 +30,7 @@ class CreateOrder extends Basic {
 	private readonly tableName = '手动建单';
 	private readonly Collection = 'kd_keepwarm_doc__c';
 
-	// * 返回给前端的 列配置 Column 的 Schema
-	// 如果有特殊处理render 返回其他Antd组件的需要 单独在前端去写、ColumnConfig中写
+	
 	private FieldSchema: Record<
 		string,
 		{
@@ -83,8 +82,6 @@ class CreateOrder extends Basic {
 		createTime: { label: '创建时间', type: 'date', width: 150, query: true, editable: false },
 		updateTime: { label: '修改时间', type: 'date', width: 150, query: true, editable: false },
 	};
-
-
 
 	private TableOps = {
 		allowCreate: true, // 新建
