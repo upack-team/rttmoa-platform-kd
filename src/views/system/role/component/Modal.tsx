@@ -6,28 +6,48 @@ import { useEffect, useState } from 'react';
 const ModalComponent = (Params: any) => {
 	const { form, modalIsVisible, setModalIsVisible, modalTitle, modalType, modalUserInfo: userInfo, handleModalSubmit } = Params;
 
-	const [menuList, setMenuList] = useState([]);
+	const [menuList, setMenuList] = useState<any>([]);
+	const [keyToIdMap, setKeyToIdMap] = useState<Record<string, string>>({});
+	const [idToKeyMap, setIdToKeyMap] = useState<Record<string, string>>({});
 	const [expandedKeys, setExpandedKeys] = useState([]); // 展开
 	const [checkedKeys, setCheckedKeys] = useState<any>([]); // 全选
 
 	function transformRoutes(routes: any[]) {
-		return routes.map((route: any) => {
-			const item: any = {
-				title: route.meta?.title || '',
-				key: route.meta?.key || '',
-			};
-			if (Array.isArray(route.children) && route.children.length > 0) {
-				item.children = transformRoutes(route.children);
-			}
-			return item;
-		});
+		const k2i: Record<string, string> = {};
+		const i2k: Record<string, string> = {};
+		const walk = (nodes: any[]): any[] =>
+			nodes.map((route: any) => {
+				const key = route.meta?.key || '';
+				const id = route.unique || '';
+				if (key && id) {
+					k2i[key] = id;
+					i2k[id] = key;
+				}
+				const item: any = { title: route.meta?.title || '', key };
+				if (Array.isArray(route.children) && route.children.length > 0) {
+					item.children = walk(route.children);
+				}
+				return item;
+			});
+		const tree = walk(routes);
+		setKeyToIdMap(k2i);
+		setIdToKeyMap(i2k);
+		return tree;
 	}
 
 	useEffect(() => {
 		FindAllMenu({ name: 'all' }).then((res: any) => {
 			setMenuList(transformRoutes(res.data || []) as any);
 			setExpandedKeys([]);
-			setCheckedKeys(modalType == 'create' ? '' : userInfo.permission_menu);
+			const initKeys =
+				modalType == 'create'
+					? ''
+					: Array.isArray(userInfo.permission_ids)
+						? userInfo.permission_ids.map((id: string) => idToKeyMap[id]).filter(Boolean)
+						: Array.isArray(userInfo.menuList)
+							? userInfo.menuList.map((id: string) => idToKeyMap[id]).filter(Boolean)
+							: '';
+			setCheckedKeys(initKeys);
 			form.setFieldsValue({
 				role_name: modalType == 'create' ? '' : userInfo.role_name,
 				permission_str: modalType == 'create' ? '' : userInfo.permission_str,
@@ -74,6 +94,8 @@ const ModalComponent = (Params: any) => {
 			return Array.from(result); // 最终返回扁平 key 数组
 		}
 		const flatKeys = findPathsForKeys(menuList, checkedKeys);
+		const menuIds = flatKeys.map((k: any) => keyToIdMap[k]).filter(Boolean);
+		const checkedIds = checkedKeys.map((k: any) => keyToIdMap[k]).filter(Boolean);
 		// console.log('所有菜单：', menuList);
 		// console.log('checkedKeys', checkedKeys);
 		// console.log('flatKeys', flatKeys); // 获取到所有的父子菜单： ['menu', 'menu2', 'menu22', 'menu221', 'menu222']
@@ -81,8 +103,9 @@ const ModalComponent = (Params: any) => {
 		if (modalType == 'edit') {
 			formList._id = userInfo._id;
 		}
-		formList.permission_menu = checkedKeys; // 无父节点：['pageMenu']
-		formList.menuList = flatKeys; // 有父节点：['auth', 'pageMenu']
+		formList.permission_menu = checkedKeys;
+		formList.permission_ids = checkedIds;
+		formList.menuList = menuIds;
 		handleModalSubmit && handleModalSubmit(modalType, formList);
 	};
 

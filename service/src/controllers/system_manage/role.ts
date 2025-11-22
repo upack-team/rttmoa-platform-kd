@@ -9,37 +9,36 @@ class Role extends Basic {
 		super();
 	}
 
-	addAndModifyField = async (ctx: Context, data: any) => {
-		const menu = await ctx.mongo.find('__menu');
-		let roleMenu = [];
-		for (const ItemPermission of data?.menuList || []) {
-			for (const ItemMenu of menu) {
-				if (ItemPermission == ItemMenu.key) {
-					roleMenu.push(ItemMenu);
-					// roleMenu.push(ItemMenu._id);
-				}
-			}
-		}
-		console.log('data?.menuList', data?.menuList);
-		console.log('roleMenu', roleMenu);
-		return {
-			role_name: this.normalize(data?.role_name, ['string'], null), // 管理员 | 普通用户
-			permission_str: this.normalize(data?.permission_str, ['string'], null), // 权限字符： admin / user
-			level: this.normalize(data?.level, ['number'], null), // 角色级别  1
-			sort: this.normalize(data?.sort, ['number'], null), // 角色排序  1
-			status: this.normalize(data?.status, ['boolean'], false),
-			permission_menu: this.normalize(data?.permission_menu, ['array'], []), // 菜单数组：树结构  ['menu', 'menu2', 'menu22', 'menu221', 'menu222']
-			menuList: this.normalize(roleMenu, ['array'], []), // 菜单数组：角色菜单
+    addAndModifyField = async (ctx: Context, data: any) => {
+        const menuIds: string[] = Array.isArray(data?.menuList) ? data.menuList : [];
+        const checkedIds: string[] = Array.isArray(data?.permission_ids) ? data.permission_ids : [];
+        const menusOfChecked = checkedIds.length ? await ctx.mongo.find('__menu', { query: { _id: { $in: checkedIds } } }) : [];
+        const permissionKeys = menusOfChecked.map((m: any) => m.key);
 
-			dataScope: '全部', // 数据范围
-			depts: [] as any, // 数据权限：部门
-			desc: data?.desc, // 角色描述
+        return {
+            role_name: this.normalize(data?.role_name, ['string'], null),
+            permission_str: this.normalize(data?.permission_str, ['string'], null),
+            level: this.normalize(data?.level, ['number'], null),
+            sort: this.normalize(data?.sort, ['number'], null),
+            status: this.normalize(data?.status, ['boolean'], false),
+            // 仅存储菜单唯一标识 _id 数组
+            menuList: this.normalize(menuIds, ['array'], []),
+            // 稳定存储所选菜单 _id（仅用户勾选项，不含父链）
+            permission_ids: this.normalize(checkedIds, ['array'], []),
+            // 根据当前 menu 表映射出的 key（响应使用，避免 key 变更造成不一致）
+            permission_menu: this.normalize(permissionKeys, ['array'], []),
 
-			createTime: new Date(),
-			updateBy: 'admin',
-			updateTime: new Date(),
-		};
-	};
+            dataScope: '全部',
+            depts: [] as any,
+            desc: data?.desc,
+
+            createTime: new Date(),
+            updateBy: 'admin',
+            updateTime: new Date(),
+        };
+    };
+		
+
 
 	// * 新增角色：角色中带菜单
 	addRole = async (ctx: Context) => {
@@ -60,7 +59,7 @@ class Role extends Basic {
 				createBy: 'admin',
 				updateBy: 'admin',
 				updateTime: new Date(),
-			};
+			}; 
 			await ctx.mongo.insertOne('__role', newRole);
 			return ctx.send('新增角色成功');
 		} catch (err) {
@@ -74,6 +73,7 @@ class Role extends Basic {
 			// 1、获取前端参数并校验：
 			const data: any = ctx.request.body;
 			console.log('编辑角色：', data);
+			// return 
 
 			// ! 权限字符 （更新时、判断除了自己的字符还有别的字符吗）
 			const permission_str = _.trim(_.get(data, 'permission_str', ''));
@@ -93,6 +93,7 @@ class Role extends Basic {
 				updateBy: 'admin',
 				updateTime: new Date(),
 			};
+			console.log('更新后的对象', newRole);
 			await ctx.mongo.updateOne('__role', data._id, newRole);
 			return ctx.send('更新角色成功');
 		} catch (err) {
@@ -109,9 +110,15 @@ class Role extends Basic {
 			const data = ctx.request.query;
 
 			const find = await ctx.mongo.find('__role');
-			console.log('find', find);
-			
-			return ctx.send({ list: find, page: 1, pageSize: 10, total: find.length });
+			// 动态映射 permission_menu keys，确保与当前 menu 表一致
+			const list = [] as any[];
+			for (const role of find) {
+				const ids: string[] = Array.isArray(role.permission_ids) ? role.permission_ids : [];
+				const menus = ids.length ? await ctx.mongo.find('__menu', { query: { _id: { $in: ids } } }) : [];
+				const keys = menus.map((m: any) => m.key);
+				list.push({ ...role, permission_menu: keys });
+			}
+			return ctx.send({ list, page: 1, pageSize: 10, total: list.length });
 		} catch (err) {
 			return ctx.sendError(500, err.message);
 		}

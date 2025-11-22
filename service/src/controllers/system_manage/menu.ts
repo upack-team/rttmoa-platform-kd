@@ -163,8 +163,11 @@ class Menu extends Basic {
 			const { role } = await this.getUserById(currentUser?.id, ctx);
 			let RoleMenu: any = [];
 			if (role.length) {
-				const Role = await ctx.mongo.find('__role', { query: { permission_str: { $in: role } }, sort: { level: -1 } }); // 角色级别倒序
-				RoleMenu = Role[0].menuList;
+				const Role = await ctx.mongo.find('__role', { query: { permission_str: { $in: role } }, sort: { level: -1 } });
+				const ids = _.get(Role[0], 'menuList', []);
+				if (Array.isArray(ids) && ids.length) {
+					RoleMenu = await ctx.mongo.find('__menu', { query: { _id: { $in: ids } } });
+				}
 			}
 
 			// * ✅ 主控制逻辑：查询全部菜单
