@@ -26,6 +26,10 @@ class CreateOrder extends Basic {
 		super();
 	}
 
+	
+	private readonly tableName = '手动建单';
+	private readonly Collection = 'kd_keepwarm_doc__c';
+
 	// * 返回给前端的 列配置 Column 的 Schema
 	// 如果有特殊处理render 返回其他Antd组件的需要 单独在前端去写、ColumnConfig中写
 	private FieldSchema: Record<
@@ -80,6 +84,8 @@ class CreateOrder extends Basic {
 		updateTime: { label: '修改时间', type: 'date', width: 150, query: true, editable: false },
 	};
 
+
+
 	private TableOps = {
 		allowCreate: true, // 新建
 		allowEdit: true, // 编辑
@@ -100,13 +106,13 @@ class CreateOrder extends Basic {
 			const page = _.clamp(_.toInteger(_.get(data, 'pagination.page', 1)), 1, Number.MAX_SAFE_INTEGER);
 			const pageSize = _.clamp(_.toInteger(_.get(data, 'pagination.pageSize', 10)), 1, 100);
 
-			const sort = _.get(data, 'sort', { postSort: 1, createTime: -1 });
+			const sort = _.get(data, 'sort', { updateTime: -1, createTime: -1 });
 
-			const [count, list] = await Promise.all([ctx.mongo.count('kd_keepwarm_doc__c', query), ctx.mongo.find('kd_keepwarm_doc__c', { query, page, pageSize, sort })]);
+			const [count, list] = await Promise.all([ctx.mongo.count(this.Collection, query), ctx.mongo.find(this.Collection, { query, page, pageSize, sort })]);
 
 			const schema: any = { ...this.FieldSchema, __ops__: this.TableOps };
-
-			return ctx.send({ list, page, pageSize, total: count, schema });
+			const tableInfo = {tableName: this.tableName, collection: this.Collection}
+			return ctx.send({ list, page, pageSize, total: count, schema, tableInfo });
 		} catch (err: any) {
 			return ctx.sendError(500, err.message || '服务器错误');
 		}
@@ -122,8 +128,8 @@ class CreateOrder extends Basic {
 				createBy: null,
 				createTime: new Date(),
 			};
-			const ins = await ctx.mongo.insertOne('kd_keepwarm_doc__c', document);
-			return ctx.send(`添加数据成功！!`);
+			const ins = await ctx.mongo.insertOne(this.Collection, document);
+			return ctx.send('添加成功');
 		} catch (err) {
 			return ctx.sendError(500, err.message);
 		}
@@ -143,7 +149,7 @@ class CreateOrder extends Basic {
 				updateTime: new Date(),
 			};
 			console.log('document', document);
-			await ctx.mongo.updateOne('kd_keepwarm_doc__c', id, document);
+			await ctx.mongo.updateOne(this.Collection, id, document);
 			return ctx.send('修改成功');
 		} catch (err) {
 			return ctx.sendError(500, err.message);
@@ -155,13 +161,13 @@ class CreateOrder extends Basic {
 			const data: any = ctx.request.body;
 			if (data && data.length) {
 				for (const element of data) {
-					const doc = this.addAndModField(data, this.FieldSchema);
+					const doc = this.addAndModField(element, this.FieldSchema);
 					const document: any = {
 						...doc,
 						createBy: 'admin',
 						createTime: new Date(),
 					};
-					await ctx.mongo.insertOne('kd_keepwarm_doc__c', document);
+					await ctx.mongo.insertOne(this.Collection, document);
 				}
 				return ctx.send('数据导入成功');
 			} else return ctx.sendError(400, `服务端未获取到数据`);
@@ -174,9 +180,9 @@ class CreateOrder extends Basic {
 		try {
 			const id = ctx.params.id;
 			if (id) {
-				const docs = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { _id: id } });
+				const docs = await ctx.mongo.find(this.Collection, { query: { _id: id } });
 				if (docs.length) {
-					await ctx.mongo.deleteOne('kd_keepwarm_doc__c', docs[0]._id);
+					await ctx.mongo.deleteOne(this.Collection, docs[0]._id);
 					return ctx.send('删除成功');
 				} else {
 					return ctx.sendError(400, `删除操作：删除任务失败！根据id未找到数据`);
@@ -192,9 +198,9 @@ class CreateOrder extends Basic {
 			const data: any = ctx.request.body;
 			if (data && data.length) {
 				for (const _id of data) {
-					const docs = await ctx.mongo.find('kd_keepwarm_doc__c', { query: { _id: _id } });
+					const docs = await ctx.mongo.find(this.Collection, { query: { _id: _id } });
 					if (docs.length) {
-						await ctx.mongo.deleteOne('kd_keepwarm_doc__c', docs[0]._id);
+						await ctx.mongo.deleteOne(this.Collection, docs[0]._id);
 					}
 				}
 				return ctx.send('全部删除完成');

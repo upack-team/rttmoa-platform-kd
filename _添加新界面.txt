@@ -31,3 +31,13 @@
   5.3、修改Modal.tsx文件中新建/编辑弹窗
 
 第六步：前端发请求 测试服务端 
+
+
+
+
+
+【复制表】
+服务端此文件已处理完毕、按照rttmoa-platform-kd\service\src\controllers\keepwarm_doc\create_order.ts此文件表名、集合名、FieldSchema、TableOps都已配置完毕、相对于前端的rttmoa-platform-kd\src\views\keepwarm_doc\create_order\index.tsx这个文件需要配置api、
+在rttmoa-platform-kd\src\api\modules\keepwarm_doc.ts这个文件中配置的、对应的服务端接口及文件都设置完毕、
+
+现在需要将此文件和上面create_order的效果一样、前端和服务端的接口地址相对应、并按照上面已经优化过的文件一样效果

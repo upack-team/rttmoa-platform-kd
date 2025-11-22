@@ -10,20 +10,14 @@ import { usePagination } from '@/hooks/useTable/usePagination';
 import { useSearchSpan } from '@/hooks/useTable/useSearchSpan';
 import useTableRequest from '@/hooks/useTable/useTableRequest';
 
-type Config = {
-	tableCache: string;
-	tableName: string;
-	api: any;
-};
-
-const useProTableDynamic = (config: Config) => {
-	const { tableCache, tableName, api } = config;
-
+const useProTableDynamic = ({ api }: any) => {
 	const { setPagination, paginationProps } = usePagination();
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const [columnSchema, setcolumnSchema] = useState<any>({});
-	const { handleRequest } = useTableRequest(api, setLoading, setcolumnSchema, setPagination);
+	const [tableInfo, setTableInfo] = useState<any>({ tableName: '', collection: '' }); // 表名,集合名
+	const { tableName, collection } = tableInfo;
+	const { handleRequest } = useTableRequest(api, setLoading, setcolumnSchema, setPagination, setTableInfo);
 
 	const searchSpan = useSearchSpan();
 
@@ -31,7 +25,7 @@ const useProTableDynamic = (config: Config) => {
 	const formRef = useRef<FormInstance>();
 	const [form] = Form.useForm();
 
-	const [editableKeys, setEditableKeys] = useState<React.Key[]>([]);
+	const [editableKeys, setEditableKeys] = useState<React.Key[]>([]); // 行内编辑
 
 	const [openSearch, setOpenSearch] = useState<boolean>(false);
 	const [tableData, setTableData] = useState<any[]>([]);
@@ -175,7 +169,7 @@ const useProTableDynamic = (config: Config) => {
 		onSizeChange: () => {},
 		onRequestError: (_error: any) => {},
 		columnsState: {
-			persistenceKey: `key_${tableCache}`,
+			persistenceKey: collection || 'persistenceKey',
 			persistenceType: 'localStorage',
 		},
 	};

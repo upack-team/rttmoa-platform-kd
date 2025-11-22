@@ -5,7 +5,7 @@ import { useState } from 'react';
 export const usePagination = () => {
 	const [pagination, setPagination] = useState({
 		page: 1,
-		pageSize: 10,
+		pageSize: 20,
 		total: 0,
 	});
 
