@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.46](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.45...v2.4.46) (2025-11-22)
+
+
+### Features
+
+* 🚀 表头搜索条件变化自动调用服务端：每次输入完我搜索条件点击查询时才可以请求服务端、我的意思是不点击查询按钮当我搜索条件变化时过1秒也可以自动调用服务端 ([cf8986e](https://github.com/rttmoa/rttmoa-platform/commit/cf8986eeee3d8743a0540ca5f6c90f99ecc04489))
+
 ### [2.4.45](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.44...v2.4.45) (2025-11-22)
 
 
