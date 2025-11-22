@@ -2,13 +2,21 @@
  
 
  
-【已完成】服务端：增删改查代码优化、只需要Schema就可以创建表
-【已完成】前端：将Column.tsx、Modal.tsx优化 至 components组件下  &  /components/TableColumns
-【已完成】前端：将一些公共方法放到 hooks组件下     /hooks/useTable  &  /hooks/useTableSchema
-【已完成】服务端的FieldSchema统一字段中：需要添加控制界面的新增、删除 控制按钮
-【已完成并同步】 新建菜单时、复制文件夹相对路径 粘贴到 菜单路由路径时： \keepwarm_task\sc_record/index 、、、有正斜杠和反斜杠、到服务端可以统一处理为：正斜杠  /
-【已完成】优化index.tsx文件：这个index.tsx文件是我已经优化过的、我想把部分函数抽离到hooks/useTable文件中、这样其他表格也可以复用、代码更加整洁一些
-【已完成】表头搜索条件变化 1s 后自动调用服务端：每次输入完我搜索条件点击查询时才可以请求服务端、我的意思是不点击查询按钮当我搜索条件变化时过1秒也可以自动调用服务端或者点击查询按钮时去请求服务端、当搜索条件参数变化过1秒去请求
+表格table 处理：
+  【已完成】服务端：增删改查代码优化、只需要Schema就可以创建表
+  【已完成】前端：将Column.tsx、Modal.tsx优化 至 components组件下  &  /components/TableColumns
+  【已完成】前端：将一些公共方法放到 hooks组件下     /hooks/useTable  &  /hooks/useTableSchema
+  【已完成】服务端的FieldSchema统一字段中：需要添加控制界面的新增、删除 控制按钮
+  【已完成】优化index.tsx文件：这个index.tsx文件是我已经优化过的、我想把部分函数抽离到hooks/useTable文件中、这样其他表格也可以复用、代码更加整洁一些
+  【已完成】表头搜索条件变化 1s 后自动调用服务端：每次输入完我搜索条件点击查询时才可以请求服务端、我的意思是不点击查询按钮当我搜索条件变化时过1秒也可以自动调用服务端或者点击查询按钮时去请求服务端、当搜索条件参数变化过1秒去请求
+
+菜单menu：
+【已完成并同步】 服务端修改：新建菜单时、复制文件夹相对路径 粘贴到 菜单路由路径时： \keepwarm_task\sc_record/index 、、、有正斜杠和反斜杠、到服务端可以统一处理为：正斜杠  /
+
+
+【未同步】前端修改：编辑了菜单index.tsx文件 和 角色index.tsx文件
+
+
 
 
 

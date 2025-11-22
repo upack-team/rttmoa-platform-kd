@@ -16,9 +16,12 @@ class Role extends Basic {
 			for (const ItemMenu of menu) {
 				if (ItemPermission == ItemMenu.key) {
 					roleMenu.push(ItemMenu);
+					// roleMenu.push(ItemMenu._id);
 				}
 			}
 		}
+		console.log('data?.menuList', data?.menuList);
+		console.log('roleMenu', roleMenu);
 		return {
 			role_name: this.normalize(data?.role_name, ['string'], null), // 管理员 | 普通用户
 			permission_str: this.normalize(data?.permission_str, ['string'], null), // 权限字符： admin / user
@@ -42,7 +45,7 @@ class Role extends Basic {
 	addRole = async (ctx: Context) => {
 		try {
 			const data: any = ctx.request.body;
-			// console.log('添加角色：', data);
+			console.log('添加角色：', data);
 
 			// ! 权限字符 （新增时、判断是否有该字符）
 			const permission_str = _.trim(_.get(data, 'permission_str', ''));
@@ -70,7 +73,7 @@ class Role extends Basic {
 		try {
 			// 1、获取前端参数并校验：
 			const data: any = ctx.request.body;
-			console.log('添加角色：', data);
+			console.log('编辑角色：', data);
 
 			// ! 权限字符 （更新时、判断除了自己的字符还有别的字符吗）
 			const permission_str = _.trim(_.get(data, 'permission_str', ''));
@@ -106,7 +109,8 @@ class Role extends Basic {
 			const data = ctx.request.query;
 
 			const find = await ctx.mongo.find('__role');
-
+			console.log('find', find);
+			
 			return ctx.send({ list: find, page: 1, pageSize: 10, total: find.length });
 		} catch (err) {
 			return ctx.sendError(500, err.message);

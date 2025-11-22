@@ -29,7 +29,7 @@ const ToolBarRender = (props: ToolBarProps) => {
 	const ExportBtn = () => {};
 	const ImportBtn = () => {};
 	return [
-		<Search placeholder='快捷搜索...' allowClear onSearch={quickSearch} style={{ width: 200 }} />,
+		// <Search placeholder='快捷搜索...' allowClear onSearch={quickSearch} style={{ width: 200 }} />,
 		<Button icon={<PlusOutlined />} onClick={CreateBtn}>
 			新建
 		</Button>,
