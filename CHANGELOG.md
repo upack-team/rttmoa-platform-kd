@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.45](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.44...v2.4.45) (2025-11-22)
+
+
+### Features
+
+* 🚀 修复index文件、将config文件合并到index.tsx文件中、所有界面优化到hooks文件夹下、可复用代码更高效 ([344107d](https://github.com/rttmoa/rttmoa-platform/commit/344107d7016b403725da66b07f2df0202dbb225d))
+* 🚀 优化index文件 ([e2972f8](https://github.com/rttmoa/rttmoa-platform/commit/e2972f89f9335b970fd74853267178bab13f500d))
+
 ### [2.4.44](https://github.com/rttmoa/rttmoa-platform/compare/v2.4.43...v2.4.44) (2025-11-21)
 
 
