@@ -21,7 +21,7 @@ const usePermissions = () => {
 				// const { data: menuList } = await getAuthMenuListApi() // 用户菜单权限、Json数据
 
 				const newMenu: any = await FindAllMenu({ name: 'open' }); // 用户菜单权限
-				console.log('usePermissions 获取树结构菜单：', newMenu);
+				// console.log('usePermissions 获取树结构菜单：', newMenu);
 				const menuList = newMenu?.data || [];
 
 				// 获取Cookie、存储Cookie

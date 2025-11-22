@@ -109,7 +109,6 @@ const ModalComponent = (Props: any) => {
 			iconNames.push(key);
 		}
 	});
-	// console.log('iconNames', iconNames);
 	return (
 		<>
 			<Modal
@@ -278,7 +277,7 @@ const ModalComponent = (Props: any) => {
 
 						<Col span={12}>
 							<Form.Item className='!mb-[8px]' label={<span className='text-[12px]'>显示排序</span>} name='sort' tooltip={{ title: '最小值：1、最大值：999、数值小排在前面' }}>
-								<InputNumber controls min={1} max={999} defaultValue={1} />
+								<InputNumber controls min={1} max={99999999} defaultValue={1} />
 							</Form.Item>
 						</Col>
 						<Col span={12}>

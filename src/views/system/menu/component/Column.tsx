@@ -22,7 +22,9 @@ const TableColumnsConfig = (handleOperator: any, handleModalSubmit: any): ProCol
 			// hideInForm: true,
 			// hideInDescriptions: true,
 			sorter: true,
-			render: (dom, entity) => {
+			render: (dom, entity: any) => {
+				const title = entity?.meta?.title;
+				let text: any = entity?.meta?.enable == '关闭' ? <span className='text-slate-500'>{title}</span> : title;
 				return (
 					<a
 						href='javascript:void(0)'
@@ -30,18 +32,10 @@ const TableColumnsConfig = (handleOperator: any, handleModalSubmit: any): ProCol
 							handleOperator('detail', entity);
 						}}
 					>
-						{dom}
+						{text}
 					</a>
 				);
 			},
-			// 自定义筛选项功能具体实现请参考 https://ant.design/components/table-cn/#components-table-demo-custom-filter-panel
-			// filterDropdown: () => (
-			// 	<div style={{ padding: 2 }}>
-			// 		<Input style={{ width: 150, marginBlockEnd: 8, display: 'block', fontSize: '14px' }} placeholder='请输入' />
-			// 	</div>
-			// ),
-			// filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-			// fieldProps: (form, config) => {}, // 查询表单的 props，会透传给表单项，
 		},
 		{
 			title: '排序',

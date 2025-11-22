@@ -1,9 +1,8 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { Steps, Tag } from 'antd';
+import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import { TableRenderAction } from '@/components/TableAction';
 import Link from 'antd/lib/typography/Link';
-import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
 
 export const ColumnsConfig = (modalOperate: any, modalResult: any): ProColumns<any>[] => {
 	// * 这里 dataIndex 唯一索引不可以重复
@@ -96,25 +95,6 @@ export const ColumnsConfig = (modalOperate: any, modalResult: any): ProColumns<a
 				启用: { text: '已上线', status: 'Success' },
 				停用: { text: '异常', status: 'Error' },
 			},
-			responsive: ['lg'],
-		},
-		{
-			title: '运行状态',
-			dataIndex: 'process',
-			ellipsis: true, // 省略
-			align: 'center',
-			render: (_, record) => (
-				<Steps
-					size='small'
-					// className='mb30'
-					items={[
-						{ title: '任务已创建', status: 'finish', icon: <UserOutlined /> },
-						{ title: '未执行', status: 'finish', icon: <SolutionOutlined /> },
-						{ title: '正在执行', status: 'process', icon: <LoadingOutlined /> },
-						{ title: '已完成', status: 'wait', icon: <SmileOutlined /> },
-					]}
-				/>
-			),
 			responsive: ['lg'],
 		},
 		{
